@@ -8,7 +8,6 @@ namespace Lissen
 {
     public class Evaluator
     {
-
         public string Eval(string s)
         {
             return s;
