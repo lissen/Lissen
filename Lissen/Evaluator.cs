@@ -15,20 +15,22 @@ namespace Lissen
 
         public string Eval(Queue<string> list)
         {
+            if (list.Count == 0) return "";
+
             string op = list.Dequeue();
 
             switch (op)
             {
                 case "+": { 
-                    var first = Convert.ToInt32(Eval(list.Dequeue()));
-                    var second= Convert.ToInt32(Eval(list.Dequeue()));
+                    int first = Convert.ToInt32(Eval(list.Dequeue()));
+                    int second= Convert.ToInt32(Eval(list.Dequeue()));
                     int result = first + second;
                     return result.ToString();
                 }
 
                 case "-": {
-                    var first = Convert.ToInt32(Eval(list.Dequeue()));
-                    var second = Convert.ToInt32(Eval(list.Dequeue()));
+                    int first = Convert.ToInt32(Eval(list.Dequeue()));
+                    int second = Convert.ToInt32(Eval(list.Dequeue()));
                     int result = first - second;
                     return result.ToString();
                 }

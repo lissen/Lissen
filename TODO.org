@@ -1,0 +1,33 @@
+
+Lissen Lisp 
+
+* Roadmap
+
+** 0.1
+
+Evaluator class executing core Lisp functions. Interact only thru unit
+tests (no REPL, no file reader, or so on...) Can handle only integer numbers.
+
+Evaluated lisp snippets:
+
+() -> ()
+1 -> 1
+(cons 1 2) -> (1 . 2)
+(cons (cons 1 2) (cons 3 4)) -> ((1.2) (3.4))
+(+ 1 2) -> 1
+(- 5 3) -> 2
+
+
+** Incremental future
+
+- Variables (environments)
+- Can load a file containing lisp code
+- REPL
+- More advanced basic types: float, string, ...
+
+* Backlog rel 0.1
+
+** DONE Add symbols, atoms and pairs
+
+** TODO 
+
