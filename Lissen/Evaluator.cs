@@ -8,35 +8,41 @@ namespace Lissen
 {
     public class Evaluator
     {
-        public string Eval(string s)
+
+        public Symbol Eval(Atom a)
         {
-            return s;
+            if (a == null) return null;
+
+            return a;
         }
 
-        public string Eval(Queue<string> list)
+        public Symbol Eval(Pair p)
         {
-            if (list.Count == 0) return "";
+            if (p == null) return null;
 
-            string op = list.Dequeue();
+            string op = p.Car.ToString();
 
-            switch (op)
-            {
-                case "+": { 
-                    int first = Convert.ToInt32(Eval(list.Dequeue()));
-                    int second= Convert.ToInt32(Eval(list.Dequeue()));
-                    int result = first + second;
-                    return result.ToString();
-                }
-
-                case "-": {
-                    int first = Convert.ToInt32(Eval(list.Dequeue()));
-                    int second = Convert.ToInt32(Eval(list.Dequeue()));
-                    int result = first - second;
-                    return result.ToString();
-                }
+            switch(op) {
+                case "+":
+                    {
+                        var v1 = Convert.ToInt32(cadr(p).ToString());
+                        var v2 = Convert.ToInt32(cadr(p.Cdr as Pair).ToString());
+                        return Atom.s(Convert.ToString(v1 + v2));
+                    }
+                case "-":
+                    {
+                        var v1 = Convert.ToInt32(cadr(p).ToString());
+                        var v2 = Convert.ToInt32(cadr(p.Cdr as Pair).ToString());
+                        return Atom.s(Convert.ToString(v1 - v2));
+                    }
             }
 
-            throw new Exception("Unable to evaluate operation " + op);
+            throw new Exception("Unable to evaluate operation: " + op);
+        }
+
+        private Symbol cadr(Pair p)
+        {
+            return (p.Cdr as Pair).Car;
         }
     }
 }

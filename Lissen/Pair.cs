@@ -10,14 +10,16 @@ namespace Lissen
     {
         public static Pair Cons(Symbol s1, Symbol s2)
         {
-            return new Pair
-            {
-                Car = s1, Cdr = s2
-            };
+            return new Pair { Car = s1, Cdr = s2 };
         }
 
         public Symbol Car { get; set; }
 
         public Symbol Cdr { get; set; }
+
+        public override string ToString()
+        {
+            return "(" + Car.ToString() + "." + Cdr.ToString() + ")";
+        }
     }
 }

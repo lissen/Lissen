@@ -17,9 +17,23 @@ namespace Lissen
             return a;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return this.AsString;
+        }
+
+        public override bool Equals(object other)
+        {
+            Atom otherAtom = other as Atom;
+            if (otherAtom == null)
+                return false;
+            else
+                return this.AsString.Equals(otherAtom.AsString);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.AsString.GetHashCode();
         }
     }
 }

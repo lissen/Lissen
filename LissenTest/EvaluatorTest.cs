@@ -12,30 +12,30 @@ namespace LissenTest
         public void Empty()
         {
             Evaluator e = new Evaluator();
-            Assert.AreEqual("", e.Eval(l(new string[] {})));
+            Assert.AreEqual(null, e.Eval(null as Atom));
         }
 
         [TestMethod]
         public void Number()
         {
             Evaluator e = new Evaluator();           
-            Assert.AreEqual("3", e.Eval("3"));
-        }
+            Assert.AreEqual(Atom.s("3"), e.Eval(Atom.s("3")));
+        }        
 
         [TestMethod]
         public void Add()
         {
             Evaluator e = new Evaluator();
-            Assert.AreEqual("3", e.Eval(l(new[] {"+", "1", "2"})));
+            Assert.AreEqual(Atom.s("3"), e.Eval(l(new[] { "+", "1", "2" })));
         }
-
+       
         [TestMethod]
         public void Sub()
         {
-            Evaluator e = new Evaluator();            
-            Assert.AreEqual("4", e.Eval(l(new[] { "-", "6", "2" })));
+            Evaluator e = new Evaluator();
+            Assert.AreEqual(Atom.s("4"), e.Eval(l(new[] { "-", "6", "2" })));
         }
-
+        
         [TestMethod]
         public void ThrowExceptionWhenCannotEvaluate()
         {
@@ -49,10 +49,17 @@ namespace LissenTest
                 Assert.IsTrue(ex.Message.Contains("Unable to evaluate operation"));
             }
         }
-
-        private Queue<string> l(string[] s)
+        
+        private Pair l(string[] list)
         {
-            return new Queue<string>(s);
+            if (list.Length == 0) return null as Pair;
+
+            Atom a = Atom.s(list[0]);
+            if (list.Length == 1) return Pair.Cons(a, null);
+
+            string[] cdr = new string[list.Length-1];
+            Array.Copy(list, 1, cdr, 0, list.Length-1);
+            return Pair.Cons(a, l(cdr));
         }
     }
 }
