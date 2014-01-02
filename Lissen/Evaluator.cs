@@ -9,35 +9,28 @@ namespace Lissen
     public class Evaluator
     {
 
-        public Symbol Eval(Atom a)
+        public Symbol Eval(Symbol s)
         {
-            if (a == null) return null;
+            if (s == null) return null;
+            if (s is Atom) return s;
 
-            return a;
-        }
-
-        public Symbol Eval(Pair p)
-        {
-            if (p == null) return null;
+            Pair p = s as Pair;
 
             string op = p.Car.ToString();
 
+            Symbol eval1 = Eval(cadr(p));
+            Symbol eval2 = Eval(cadr(p.Cdr as Pair));
+            var v1 = Convert.ToInt32(eval1.ToString());
+            var v2 = Convert.ToInt32(eval2.ToString());
+
             switch(op) {
                 case "+":
-                    {
-                        var v1 = Convert.ToInt32(cadr(p).ToString());
-                        var v2 = Convert.ToInt32(cadr(p.Cdr as Pair).ToString());
-                        return Atom.s(Convert.ToString(v1 + v2));
-                    }
+                    return Atom.s(Convert.ToString(v1 + v2));                    
                 case "-":
-                    {
-                        var v1 = Convert.ToInt32(cadr(p).ToString());
-                        var v2 = Convert.ToInt32(cadr(p.Cdr as Pair).ToString());
-                        return Atom.s(Convert.ToString(v1 - v2));
-                    }
-            }
-
-            throw new Exception("Unable to evaluate operation: " + op);
+                     return Atom.s(Convert.ToString(v1 - v2));
+                default:
+                     throw new Exception("Unable to evaluate operation: " + op);
+            }            
         }
 
         private Symbol cadr(Pair p)

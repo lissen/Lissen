@@ -35,14 +35,28 @@ namespace LissenTest
             Evaluator e = new Evaluator();
             Assert.AreEqual(Atom.s("4"), e.Eval(l(new[] { "-", "6", "2" })));
         }
-        
+
+        [TestMethod]
+        public void AddNestedPairs()
+        {
+            Evaluator e = new Evaluator();
+            Assert.AreEqual(Atom.s("17"), e.Eval(l(new Symbol[] {Atom.s("+"), l(new[] { "+", "6", "2" }), Atom.s("9")})));
+        }
+
+        [TestMethod]
+        public void SubNestedPairs()
+        {
+            Evaluator e = new Evaluator();
+            Assert.AreEqual(Atom.s("5"), e.Eval(l(new Symbol[] { Atom.s("-"), l(new[] { "-", "10", "2" }), Atom.s("3") })));
+        }
+
         [TestMethod]
         public void ThrowExceptionWhenCannotEvaluate()
         {
             try
             {
                 Evaluator e = new Evaluator();
-                e.Eval(l(new[] { "dummystuff"}));
+                e.Eval(l(new[] { "dummystuff", "1", "2" }));
                 Assert.Fail("Should have raised an exception");
             }
             catch (Exception ex)  {
@@ -59,6 +73,18 @@ namespace LissenTest
 
             string[] cdr = new string[list.Length-1];
             Array.Copy(list, 1, cdr, 0, list.Length-1);
+            return Pair.Cons(a, l(cdr));
+        }
+
+        private Pair l(Symbol[] list)
+        {
+            if (list.Length == 0) return null as Pair;
+
+            Symbol a = list[0];
+            if (list.Length == 1) return Pair.Cons(a, null);
+
+            Symbol[] cdr = new Symbol[list.Length - 1];
+            Array.Copy(list, 1, cdr, 0, list.Length - 1);
             return Pair.Cons(a, l(cdr));
         }
     }
