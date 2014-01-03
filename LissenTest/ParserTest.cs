@@ -15,11 +15,20 @@ namespace LissenTest
         }
 
         [TestMethod]
-        public void AtomInPair()
+        public void ListOfOneAtom()
         {
             Parser p = new Parser();
             Pair pair = Pair.Cons(Atom.s("a"), null); 
             Assert.AreEqual(pair, p.Parse("(a)"));            
         }
+
+        [TestMethod]
+        public void ListOfAtoms()
+        {
+            Parser p = new Parser();
+            Pair list = Pair.Cons(Atom.s("a"), Pair.Cons(Atom.s("b"), null)); 
+            Assert.AreEqual(list, p.Parse("(a b)"));                        
+        }
+
     }
 }
