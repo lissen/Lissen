@@ -19,7 +19,24 @@ namespace Lissen
 
         public override string ToString()
         {
-            return "(" + Car.ToString() + "." + Cdr.ToString() + ")";
+            string s = "(" + Car.ToString();
+            if(Cdr != null) s += "." + Cdr.ToString() ;
+            return s + ")";
+        }
+
+        public override bool Equals(object other)
+        {
+            Pair otherPair = other as Pair;
+            if (otherPair == null) return false;
+
+            if(!this.Car.Equals(otherPair.Car)) return false;
+            if (this.Cdr == null) return otherPair.Cdr == null;
+            return this.Cdr.Equals(otherPair.Cdr);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
         }
     }
 }
