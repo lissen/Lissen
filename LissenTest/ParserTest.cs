@@ -34,9 +34,13 @@ namespace LissenTest
         public void ListOfLists()
         {
             Parser parser = new Parser();
+
             Pair ab = p(atom("a"), p(atom("b"), nil));
             Pair abc = p(ab, p(atom("c"), nil));
             Assert.AreEqual(abc, parser.Parse("((a b) c)"));
+
+            Pair dabc = p(atom("d"), abc);
+            Assert.AreEqual(dabc, parser.Parse("(d (a b) c)"));
         }
 
         private Atom atom(string s)
