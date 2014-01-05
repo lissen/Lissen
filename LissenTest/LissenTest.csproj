@@ -55,7 +55,6 @@
     <Compile Include="EvaluatorTest.cs" />
     <Compile Include="PairTest.cs" />
     <Compile Include="AtomTest.cs" />
-    <Compile Include="InnerListSplitterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lissen\Lissen.csproj">

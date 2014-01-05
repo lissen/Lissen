@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="Atom.cs" />
     <Compile Include="Evaluator.cs" />
-    <Compile Include="InnerListSplitter.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Nil.cs" />
     <Compile Include="Pair.cs" />
