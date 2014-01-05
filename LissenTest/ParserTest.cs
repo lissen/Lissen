@@ -18,16 +18,14 @@ namespace LissenTest
         public void ListOfOneAtom()
         {
             Parser parser = new Parser();
-            Pair pair = p(atom("a"), nil);
-            Assert.AreEqual(pair, parser.Parse("(a)"));            
+            Assert.AreEqual(l(new[] {atom("a")}), parser.Parse("(a)"));            
         }
 
         [TestMethod]
         public void ListOfAtoms()
         {
             Parser parser = new Parser();
-            Pair list = p(atom("a"), p(atom("b"), nil));
-            Assert.AreEqual(list, parser.Parse("(a b)"));                        
+            Assert.AreEqual(ab(), parser.Parse("(a b)"));                        
         }
 
         [TestMethod]
@@ -35,12 +33,32 @@ namespace LissenTest
         {
             Parser parser = new Parser();
 
-            Pair ab = p(atom("a"), p(atom("b"), nil));
-            Pair abc = p(ab, p(atom("c"), nil));
-            Assert.AreEqual(abc, parser.Parse("((a b) c)"));
+            Assert.AreEqual(abc(), parser.Parse("((a b) c)"));
 
-            Pair dabc = p(atom("d"), abc);
-            Assert.AreEqual(dabc, parser.Parse("(d (a b) c)"));
+            Assert.AreEqual(dabc(), parser.Parse("(d ((a b) c))"));
+        }
+
+        [TestMethod]
+        public void DeepList()
+        {
+            Parser parser = new Parser();
+            List edabcf = l(new Symbol[] {atom("e"), dabc(), atom("f")});
+            Assert.AreEqual(edabcf, parser.Parse("(e (d ((a b) c)) f)"));          
+        }
+
+        private List ab()
+        {
+            return l(new[] {atom("a"), atom("b")});
+        }
+
+        private List abc()
+        {
+            return l(new Symbol[] {ab(), atom("c")});
+        }
+
+        private List dabc()
+        {
+            return l(new Symbol[] {atom("d"), abc()});
         }
 
         private Atom atom(string s)
@@ -48,11 +66,11 @@ namespace LissenTest
             return Atom.s(s);
         }
 
-        private Pair p(Symbol a, Symbol b)
+        private List l(Symbol[] symbols)
         {
-            return Pair.Cons(a, b);
+            List list = new List();
+            list.AddRange(symbols);
+            return list;
         }
-
-        private Nil nil = new Nil();
     }
 }

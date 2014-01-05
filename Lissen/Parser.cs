@@ -1,44 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lissen
 {
     public class Parser
     {
+        private Queue<string> tokens;
+
         public Symbol Parse(string rawString)
         {
-            string s = rawString.Trim();
-            if (s[0] == '(') return ParseNakedList(s.Substring(1, s.Length - 2));
-            return Atom.s(s);
+            string preparedString = rawString.Replace("(", " ( ").Replace(")", " ) ").Trim();
+            string[] splittedString = preparedString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            this.tokens = new Queue<string>(splittedString);
+
+            return ParseTokens();
         }
 
-        private Symbol ParseNakedList(string nakedList)
+        private Symbol ParseTokens()
         {
-            InnerSplitted i = InnerListSplitter.split(nakedList);
+            if (tokens.Count==0) throw new Exception("unexpected EOF");
 
-            if (i.inner.Length == 0) return ParseSimpleList(i.after, new Nil());
+            string token = tokens.Dequeue();
 
-            Symbol after = i.after.Length > 0 ? ParseNakedList(i.after) : new Nil();
-
-            Symbol parsedFromInner = Pair.Cons(Parse(i.inner), after);
-            if (i.before.Length == 0) return parsedFromInner;
-            return ParseSimpleList(i.before, parsedFromInner);
-        }
-
-        private Symbol ParseSimpleList(string s, Symbol parsed)
-        {
-            string[] tokens = s.Trim().Split(new char[] { ' ' });
-            return ParseTokens(new Stack<string>(tokens), parsed);
-        }
-
-        private Symbol ParseTokens(Stack<string> tokens, Symbol parsed)
-        {
-            if (tokens.Count == 0) return parsed;
-            string last = tokens.Pop();
-            return ParseTokens(tokens, Pair.Cons(Parse(last), parsed));
+            if(token == "(") {
+                List list = new List();
+                while(tokens.Peek() != ")") {
+                    list.Add(ParseTokens());
+                }
+                tokens.Dequeue();
+                return list;
+            }
+            else if(token == ")")
+	        {
+                 throw new Exception("unexpected )");   
+	        }
+            else return Atom.s(token);
         }
     }
 }
