@@ -7,7 +7,7 @@ namespace Lissen
 
         public Symbol Eval(Symbol s)
         {
-            if (s == null) return null;
+            if (s is Nil) return s;
             if (s is Atom) return s;
 
             Pair p = s as Pair;

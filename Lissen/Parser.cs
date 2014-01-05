@@ -8,24 +8,38 @@ namespace Lissen
 {
     public class Parser
     {
-        public Symbol Parse(string p)
+        public Symbol Parse(string rawString)
         {
-            char c = p[0];
-            if (p[0] == '(') return ParseList(p.Substring(1).TrimEnd(new char[] {')', ' '}));
-            return Atom.s(p);
+            string s = rawString.Trim();
+            if (s[0] == '(') return ParseNakedList(s.Substring(1, s.Length - 2));
+            return Atom.s(s);
         }
 
-        private Symbol ParseList(string p)
+        private Symbol ParseNakedList(string nakedList)
         {
-            string[] tokens = p.Split(new char[] {' '});
-            return ParseTokenList(new Queue<string>(tokens));
+            InnerSplitted i = InnerListSplitter.split(nakedList);
+
+            if (i.inner.Length == 0) return ParseSimpleList(i.after);
+
+            Symbol after = i.after.Length > 0 ? ParseNakedList(i.after) : new Nil();
+            if (i.inner.Length > 0)
+            {
+                return Pair.Cons(Parse(i.inner), after);
+            }
+            return after;
         }
 
-        private Symbol ParseTokenList(Queue<string> tokens)
+        private Symbol ParseSimpleList(string s)
         {
-            if (tokens.Count == 0) return null;
-            string head = tokens.Dequeue();
-            return Pair.Cons(Atom.s(head), ParseTokenList(tokens));
+            string[] tokens = s.Trim().Split(new char[] { ' ' });
+            return ParseTokens(new Stack<string>(tokens), new Nil());
+        }
+
+        private Symbol ParseTokens(Stack<string> tokens, Symbol parsed)
+        {
+            if (tokens.Count == 0) return parsed;
+            string last = tokens.Pop();
+            return ParseTokens(tokens, Pair.Cons(Parse(last), parsed));
         }
     }
 }

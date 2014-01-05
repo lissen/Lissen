@@ -8,11 +8,13 @@ namespace LissenTest
     [TestClass]
     public class EvaluatorTest
     {
+        private Nil nil = new Nil();
+
         [TestMethod]
         public void Empty()
         {
             Evaluator e = new Evaluator();
-            Assert.AreEqual(null, e.Eval(null as Atom));
+            Assert.AreEqual(nil, e.Eval(nil));
         }
 
         [TestMethod]
