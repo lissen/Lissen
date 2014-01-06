@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lissen", "Lissen\Lissen.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LissenTest", "LissenTest\LissenTest.csproj", "{D0CC8EBC-78F7-4AAA-9C3E-7403BB6436F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LissenRepl", "LissenRepl\LissenRepl.csproj", "{7B422560-80A9-47B0-A690-B73F7E3B4CE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D0CC8EBC-78F7-4AAA-9C3E-7403BB6436F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0CC8EBC-78F7-4AAA-9C3E-7403BB6436F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0CC8EBC-78F7-4AAA-9C3E-7403BB6436F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B422560-80A9-47B0-A690-B73F7E3B4CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B422560-80A9-47B0-A690-B73F7E3B4CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B422560-80A9-47B0-A690-B73F7E3B4CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B422560-80A9-47B0-A690-B73F7E3B4CE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
