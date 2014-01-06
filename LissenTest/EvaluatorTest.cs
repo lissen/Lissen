@@ -51,7 +51,7 @@ namespace LissenTest
             Evaluator e = new Evaluator();
             Assert.AreEqual(Atom.s("5"), e.Eval(l(new Symbol[] { Atom.s("-"), l(new[] { "-", "10", "2" }), Atom.s("3") })));
         }
-
+       
         [TestMethod]
         public void ThrowExceptionWhenCannotEvaluate()
         {
@@ -65,29 +65,25 @@ namespace LissenTest
                 Assert.IsTrue(ex.Message.Contains("Unable to evaluate operation"));
             }
         }
-        
-        private Pair l(string[] list)
+              
+        private List l(string[] stringList)
         {
-            if (list.Length == 0) return null as Pair;
-
-            Atom a = Atom.s(list[0]);
-            if (list.Length == 1) return Pair.Cons(a, null);
-
-            string[] cdr = new string[list.Length-1];
-            Array.Copy(list, 1, cdr, 0, list.Length-1);
-            return Pair.Cons(a, l(cdr));
+            List list = new List();
+            foreach(string s in stringList)
+            {
+                list.Add(Atom.s(s));
+            }
+            return list;
         }
 
-        private Pair l(Symbol[] list)
+        private List l(Symbol[] symList)
         {
-            if (list.Length == 0) return null as Pair;
-
-            Symbol a = list[0];
-            if (list.Length == 1) return Pair.Cons(a, null);
-
-            Symbol[] cdr = new Symbol[list.Length - 1];
-            Array.Copy(list, 1, cdr, 0, list.Length - 1);
-            return Pair.Cons(a, l(cdr));
+            List list = new List();
+            foreach (Symbol s in symList)
+            {
+                list.Add(s);
+            }
+            return list;
         }
     }
 }

@@ -8,6 +8,21 @@ namespace Lissen
 {
     public class List : List<Symbol>, Symbol
     {
+        public Symbol Car()
+        {
+            return this[0];
+        }
+
+        public Symbol Cdr()
+        {
+            return this[1];
+        }
+
+        public Symbol Cadr()
+        {
+            return this[2];
+        }
+
         public override string ToString()
         {
             return "(" + String.Join(" ", this) + ")";

@@ -10,12 +10,12 @@ namespace Lissen
             if (s is Nil) return s;
             if (s is Atom) return s;
 
-            Pair p = s as Pair;
+            List list = s as List;
 
-            string op = p.Car.ToString();
+            string op = list.Car().ToString();
 
-            Symbol eval1 = Eval(cadr(p));
-            Symbol eval2 = Eval(cadr(p.Cdr as Pair));
+            Symbol eval1 = Eval(list.Cdr());
+            Symbol eval2 = Eval(list.Cadr());
             var v1 = Convert.ToInt32(eval1.ToString());
             var v2 = Convert.ToInt32(eval2.ToString());
 
