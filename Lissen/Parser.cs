@@ -14,7 +14,11 @@ namespace Lissen
 
             this.tokens = new Queue<string>(splittedString);
 
-            return ParseTokens();
+            Symbol result = ParseTokens();
+
+            if(tokens.Count>0) throw new Exception("unexpected end of list");
+
+            return result;
         }
 
         private Symbol ParseTokens()
@@ -25,10 +29,12 @@ namespace Lissen
 
             if(token == "(") {
                 List list = new List();
-                while(tokens.Peek() != ")") {
+                while((tokens.Count >0) && (tokens.Peek() != ")")) {
                     list.Add(ParseTokens());
                 }
+                if (tokens.Count == 0) throw new Exception("expected )");
                 tokens.Dequeue();
+                
                 return list;
             }
             else if(token == ")")

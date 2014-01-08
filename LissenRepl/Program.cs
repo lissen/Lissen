@@ -24,8 +24,16 @@ namespace LissenRepl
                 Console.Write(">");
                 string userInput = Console.ReadLine();
 
-                string result = evaluator.Eval(parser.Parse(userInput)).ToString();
-
+                string result;
+                try
+                {
+                    result = evaluator.Eval(parser.Parse(userInput)).ToString();
+                }
+                catch(Exception e)
+                {
+                    result = "Error: " + e.Message;
+                }
+                
                 Console.WriteLine(result);
             }            
         }

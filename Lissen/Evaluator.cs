@@ -28,10 +28,5 @@ namespace Lissen
                      throw new Exception("Unable to evaluate operation: " + op);
             }            
         }
-
-        private Symbol cadr(Pair p)
-        {
-            return (p.Cdr as Pair).Car;
-        }
     }
 }

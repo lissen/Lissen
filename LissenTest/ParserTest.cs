@@ -46,6 +46,22 @@ namespace LissenTest
             Assert.AreEqual(edabcf, parser.Parse("(e (d ((a b) c)) f)"));          
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ErrorNoEnd()
+        {
+            Parser parser = new Parser();
+            parser.Parse("(e");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ErrorNoStart()
+        {
+            Parser parser = new Parser();
+            parser.Parse("(a b) d)");
+        } 
+
         private List ab()
         {
             return l(new[] {atom("a"), atom("b")});
