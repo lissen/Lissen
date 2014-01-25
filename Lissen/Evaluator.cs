@@ -14,6 +14,8 @@ namespace Lissen
 
             string op = list.Car().ToString();
 
+            if (op == "quote") return list.Cdr();
+
             Symbol eval1 = Eval(list.Cdr());
             Symbol eval2 = Eval(list.Cadr());
             var v1 = Convert.ToInt32(eval1.ToString());
@@ -23,9 +25,9 @@ namespace Lissen
                 case "+":
                     return Atom.s(Convert.ToString(v1 + v2));                    
                 case "-":
-                     return Atom.s(Convert.ToString(v1 - v2));
+                    return Atom.s(Convert.ToString(v1 - v2));
                 default:
-                     throw new Exception("Unable to evaluate operation: " + op);
+                    throw new Exception("Unable to evaluate operation: " + op);
             }            
         }
     }

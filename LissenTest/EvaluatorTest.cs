@@ -51,7 +51,17 @@ namespace LissenTest
             Evaluator e = new Evaluator();
             Assert.AreEqual(Atom.s("5"), e.Eval(l(new Symbol[] { Atom.s("-"), l(new[] { "-", "10", "2" }), Atom.s("3") })));
         }
-       
+
+        [TestMethod]
+        public void Quote()
+        {
+            Evaluator e = new Evaluator();
+            List quoted = l(new[] { "-", "10", "2" });
+            Assert.AreEqual(quoted, e.Eval(l(new Symbol[] { Atom.s("quote"), quoted })));
+        }
+
+
+
         [TestMethod]
         public void ThrowExceptionWhenCannotEvaluate()
         {

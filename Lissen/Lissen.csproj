@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Atom.cs" />
+    <Compile Include="VariablesEnvironment.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Nil.cs" />
