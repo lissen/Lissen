@@ -29,6 +29,12 @@ namespace Lissen
             return this[2];
         }
 
+        public Symbol Eval(VariablesEnvironment env)
+        {
+            NumericOperator op = new NumericOperator(this.Car() as Atom, this.Cdr());
+            return op.Eval(env);
+        }
+
         public override string ToString()
         {
             return "(" + String.Join(" ", this) + ")";

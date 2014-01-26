@@ -17,6 +17,11 @@ namespace Lissen
 
         public Symbol Cdr { get; set; }
 
+        public Symbol Eval(VariablesEnvironment env)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             string s = "(" + Car.ToString();

@@ -2,9 +2,8 @@
 
 namespace Lissen
 {
-    public class Nil : Symbol
+    public class Nil : Atom
     {
-
         public override string ToString()
         {
             return "()";

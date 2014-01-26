@@ -17,6 +17,11 @@ namespace Lissen
             return a;
         }
 
+        public Symbol Eval(VariablesEnvironment env)
+        {
+            return this;
+        }
+
         public override string ToString()
         {
             return this.AsString;
@@ -35,5 +40,7 @@ namespace Lissen
         {
             return this.AsString.GetHashCode();
         }
+
+
     }
 }

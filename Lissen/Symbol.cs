@@ -9,5 +9,7 @@ namespace Lissen
     public interface Symbol
     {
         string ToString();
+
+        Symbol Eval(VariablesEnvironment env);
     }
 }

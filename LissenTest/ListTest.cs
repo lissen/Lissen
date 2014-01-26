@@ -5,53 +5,53 @@ using Lissen;
 namespace LissenTest
 {
     [TestClass]
-    public class ListTest
+    public class ListTest : SymbolHelpers
     {
-        private List L;
+        private List abc;
 
         [TestInitialize]
         public void SetUp()
         {
-            L = l(new[] { "a", "b", "c" });
+            abc = l(new[] { "a", "b", "c" });
         }
 
         [TestMethod]
         public void Car()
         {
-            Assert.AreEqual(a("a"), L.Car());
+            Assert.AreEqual(a("a"), abc.Car());
         }
 
         [TestMethod]
         public void Cdr()
         {
-            Assert.AreEqual(l(new[] { "b", "c" }), L.Cdr());
+            Assert.AreEqual(l(new[] { "b", "c" }), abc.Cdr());
         }
 
         [TestMethod]
         public void Cadr()
         {
-            Assert.AreEqual(a("b"), L.Cadr());
+            Assert.AreEqual(a("b"), abc.Cadr());
         }
 
         [TestMethod]
         public void Caddr()
         {
-            Assert.AreEqual(a("c"), L.Caddr());
+            Assert.AreEqual(a("c"), abc.Caddr());
         }
 
-        private Atom a(string s)
+        [TestMethod]
+        public void Eval()
         {
-            return Atom.s(s);
+            VariablesEnvironment env = new VariablesEnvironment();
+            List list = l(new[] { "+", "2", "3" });
+            Assert.AreEqual(a("5"), list.Eval(env));
         }
 
-        private List l(string[] stringList)
+        public void EvalNestedLists()
         {
-            List list = new List();
-            foreach (string s in stringList)
-            {
-                list.Add(a(s));
-            }
-            return list;
+            VariablesEnvironment env = new VariablesEnvironment();
+            List list = l(new Symbol[] { a("+"), a("3"), l(new[] { "+", "2", "3" })});
+            Assert.AreEqual(a("8"), list.Eval(env));
         }
     }
 }

@@ -13,5 +13,13 @@ namespace LissenTest
             Atom a = Atom.s("abc");
             Assert.AreEqual("abc", a.ToString());
         }
+
+        [TestMethod]
+        public void Eval()
+        {
+            VariablesEnvironment env = new VariablesEnvironment();
+            Atom a = Atom.s("abc");
+            Assert.AreEqual(Atom.s("abc"), a.Eval(env));
+        }
     }
 }

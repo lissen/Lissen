@@ -35,7 +35,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumericOperator.cs" />
     <Compile Include="Atom.cs" />
+    <Compile Include="Function.cs" />
+    <Compile Include="Lambda.cs" />
     <Compile Include="VariablesEnvironment.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="List.cs" />
