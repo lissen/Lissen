@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace LissenTest
 {
     [TestClass]
-    public class EvaluatorTest
+    public class EvaluatorTest : SymbolHelpers
     {
         private Nil nil = new Nil();
         private Evaluator e;
@@ -101,48 +101,14 @@ namespace LissenTest
             }
         }
 
-        #region Helpers
-
         private Symbol eval(Symbol s)
         {
             return e.Eval(s, env);
-        }
-
-        private Atom a(string s)
-        {
-            return Atom.s(s);
-        }
-              
-        private List l(string[] stringList)
-        {
-            List list = new List();
-            foreach(string s in stringList)
-            {
-                list.Add(a(s));
-            }
-            return list;
-        }
-
-        private List l(Symbol[] symList)
-        {
-            List list = new List();
-            foreach (Symbol s in symList)
-            {
-                list.Add(s);
-            }
-            return list;
         }
 
         private Symbol define(string variableName, Symbol value)
         {
             return eval(l(new Symbol[] { a("define"), a(variableName), value }));
         }
-
-        private Symbol quote(Symbol s)
-        {
-            return l(new Symbol[] { a("quote"), s });
-        }
-
-        #endregion
     }
 }
