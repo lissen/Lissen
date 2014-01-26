@@ -16,7 +16,7 @@ namespace LissenTest
             env.Define(Atom.s("a"), Atom.s("1"));
             
             Assert.IsTrue(env.IsDefined(Atom.s("a")));
-            Assert.AreEqual(Atom.s("1"), env.Get(Atom.s("a")));
+            Assert.AreEqual(Atom.s("1"), env.Find(Atom.s("a")));
         }
 
         [TestMethod]        
@@ -25,7 +25,7 @@ namespace LissenTest
             VariablesEnvironment env = new VariablesEnvironment();
             try
             {
-                env.Get(Atom.s("a"));
+                env.Find(Atom.s("a"));
             }
             catch (Exception ex)
             {

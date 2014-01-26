@@ -15,10 +15,16 @@ namespace Lissen
 
         public Symbol Cdr()
         {
-            return this[1];
+            this.RemoveAt(0);
+            return this;
         }
 
         public Symbol Cadr()
+        {
+            return this[1];
+        }
+
+        public Symbol Caddr()
         {
             return this[2];
         }
@@ -50,5 +56,7 @@ namespace Lissen
         {
             return this.ToString().GetHashCode();
         }
+
+
     }
 }

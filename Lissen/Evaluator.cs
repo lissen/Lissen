@@ -5,7 +5,7 @@ namespace Lissen
     public class Evaluator
     {
 
-        public Symbol Eval(Symbol s)
+        public Symbol Eval(Symbol s, VariablesEnvironment env=null)
         {
             if (s is Nil) return s;
             if (s is Atom) return s;
@@ -14,10 +14,18 @@ namespace Lissen
 
             string op = list.Car().ToString();
 
-            if (op == "quote") return list.Cdr();
+            switch (op)
+            {
+                case "quote":
+                    return list.Cadr();
+                case "defined":
+                    Symbol value = Eval(list.Cdr(), env);
+                    env.Define(list.Caddr() as Atom, value);
+                    return value;
+            }
 
-            Symbol eval1 = Eval(list.Cdr());
-            Symbol eval2 = Eval(list.Cadr());
+            Symbol eval1 = Eval(list.Cadr());
+            Symbol eval2 = Eval(list.Caddr());
             var v1 = Convert.ToInt32(eval1.ToString());
             var v2 = Convert.ToInt32(eval2.ToString());
 

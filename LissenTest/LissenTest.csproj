@@ -55,6 +55,7 @@
     <Compile Include="EvaluatorTest.cs" />
     <Compile Include="PairTest.cs" />
     <Compile Include="AtomTest.cs" />
+    <Compile Include="ListTest.cs" />
     <Compile Include="VariablesEnvironmentTest.cs" />
   </ItemGroup>
   <ItemGroup>
