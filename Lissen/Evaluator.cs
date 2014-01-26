@@ -18,9 +18,9 @@ namespace Lissen
             {
                 case "quote":
                     return list.Cadr();
-                case "defined":
-                    Symbol value = Eval(list.Cdr(), env);
-                    env.Define(list.Caddr() as Atom, value);
+                case "define":
+                    Symbol value = Eval(list.Caddr(), env);
+                    env.Define(list.Cadr() as Atom, value);
                     return value;
             }
 

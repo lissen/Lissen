@@ -13,7 +13,7 @@ namespace Lissen
             return this[0];
         }
 
-        public Symbol Cdr()
+        public List Cdr()
         {
             this.RemoveAt(0);
             return this;
