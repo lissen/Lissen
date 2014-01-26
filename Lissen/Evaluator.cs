@@ -5,10 +5,15 @@ namespace Lissen
     public class Evaluator
     {
 
-        public Symbol Eval(Symbol s, VariablesEnvironment env=null)
+        public Symbol Eval(Symbol s, VariablesEnvironment env)
         {
             if (s is Nil) return s;
-            if (s is Atom) return s;
+            if (s is Atom)
+            {
+                Atom a = s as Atom;
+                if (env.IsDefined(a)) return env.Find(a);
+                else return s;
+            }
 
             List list = s as List;
 
@@ -24,8 +29,8 @@ namespace Lissen
                     return value;
             }
 
-            Symbol eval1 = Eval(list.Cadr());
-            Symbol eval2 = Eval(list.Caddr());
+            Symbol eval1 = Eval(list.Cadr(), env);
+            Symbol eval2 = Eval(list.Caddr(), env);
             var v1 = Convert.ToInt32(eval1.ToString());
             var v2 = Convert.ToInt32(eval2.ToString());
 

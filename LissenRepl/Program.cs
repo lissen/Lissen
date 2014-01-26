@@ -16,6 +16,8 @@ namespace LissenRepl
             Console.WriteLine("");
             Console.WriteLine("<ctrl>-C to exit.");
 
+            VariablesEnvironment globalEnv = new VariablesEnvironment();
+
             Evaluator evaluator = new Evaluator();
             Parser parser = new Parser();
 
@@ -27,7 +29,7 @@ namespace LissenRepl
                 string result;
                 try
                 {
-                    result = evaluator.Eval(parser.Parse(userInput)).ToString();
+                    result = evaluator.Eval(parser.Parse(userInput), globalEnv).ToString();
                 }
                 catch(Exception e)
                 {
