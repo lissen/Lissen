@@ -7,21 +7,21 @@ namespace Lissen
     {
         private Queue<string> tokens;
 
-        public Symbol Parse(string rawString)
+        public Sexpr Parse(string rawString)
         {
             string preparedString = rawString.Replace("(", " ( ").Replace(")", " ) ").Trim();
             string[] splittedString = preparedString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             this.tokens = new Queue<string>(splittedString);
 
-            Symbol result = ParseTokens();
+            Sexpr result = ParseTokens();
 
             if(tokens.Count>0) throw new Exception("unexpected end of list");
 
             return result;
         }
 
-        private Symbol ParseTokens()
+        private Sexpr ParseTokens()
         {
             if (tokens.Count==0) throw new Exception("unexpected EOF");
 

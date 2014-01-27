@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public interface Symbol
+    public interface Sexpr
     {
         string ToString();
 
-        Symbol Eval(VariablesEnvironment env);
+        Sexpr Eval(VariablesEnvironment env);
     }
 }

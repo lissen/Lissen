@@ -46,13 +46,13 @@ namespace LissenTest
         [TestMethod]
         public void AddNestedPairs()
         {
-            Assert.AreEqual(a("17"), eval(l(new Symbol[] {a("+"), l(new[] { "+", "6", "2" }), a("9")})));
+            Assert.AreEqual(a("17"), eval(l(new Sexpr[] {a("+"), l(new[] { "+", "6", "2" }), a("9")})));
         }
 
         [TestMethod]
         public void SubNestedPairs()
         {
-            Assert.AreEqual(a("5"), eval(l(new Symbol[] { a("-"), l(new[] { "-", "10", "2" }), a("3") })));
+            Assert.AreEqual(a("5"), eval(l(new Sexpr[] { a("-"), l(new[] { "-", "10", "2" }), a("3") })));
         }
 
         [TestMethod]
@@ -101,14 +101,16 @@ namespace LissenTest
             }
         }
 
-        private Symbol eval(Symbol s)
+        #region Helpers
+        private Sexpr eval(Sexpr s)
         {
             return e.Eval(s, env);
         }
 
-        private Symbol define(string variableName, Symbol value)
+        private Sexpr define(string variableName, Sexpr value)
         {
-            return eval(l(new Symbol[] { a("define"), a(variableName), value }));
+            return eval(l(new Sexpr[] { a("define"), a(variableName), value }));
         }
+        #endregion
     }
 }

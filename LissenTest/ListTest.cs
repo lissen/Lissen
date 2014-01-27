@@ -50,7 +50,7 @@ namespace LissenTest
         public void EvalNestedLists()
         {
             VariablesEnvironment env = new VariablesEnvironment();
-            List list = l(new Symbol[] { a("+"), a("3"), l(new[] { "+", "2", "3" })});
+            List list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" })});
             Assert.AreEqual(a("8"), list.Eval(env));
         }
     }

@@ -8,21 +8,21 @@ namespace Lissen
 {
     public class VariablesEnvironment
     {
-        private Dictionary<Atom, Symbol> variables = new Dictionary<Atom, Symbol>();
+        private Dictionary<Atom, Sexpr> variables = new Dictionary<Atom, Sexpr>();
 
         public bool IsDefined(Atom variable)
         {
             return variables.ContainsKey(variable);
         }
 
-        public void Define(Atom variable, Symbol value)
+        public void Define(Atom variable, Sexpr value)
         {
             variables.Add(variable, value);
         }
 
-        public Symbol Find(Atom variable)
+        public Sexpr Find(Atom variable)
         {
-            Symbol value;
+            Sexpr value;
             if (!variables.TryGetValue(variable, out value))
             {
                 throw new Exception("Variable undefined: " + variable.ToString());

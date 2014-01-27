@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public class Pair : Symbol
+    public class Pair : Sexpr
     {
-        public static Pair Cons(Symbol s1, Symbol s2)
+        public static Pair Cons(Sexpr s1, Sexpr s2)
         {
             return new Pair { Car = s1, Cdr = s2 };
         }
 
-        public Symbol Car { get; set; }
+        public Sexpr Car { get; set; }
 
-        public Symbol Cdr { get; set; }
+        public Sexpr Cdr { get; set; }
 
-        public Symbol Eval(VariablesEnvironment env)
+        public Sexpr Eval(VariablesEnvironment env)
         {
             throw new NotImplementedException();
         }

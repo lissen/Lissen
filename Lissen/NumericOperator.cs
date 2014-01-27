@@ -9,8 +9,8 @@ namespace Lissen
     public class NumericOperator : Function
     {
         private string op;
-        private Symbol param1;
-        private Symbol param2;
+        private Sexpr param1;
+        private Sexpr param2;
 
         public NumericOperator(Atom op, List par)
         {
@@ -19,7 +19,7 @@ namespace Lissen
             this.param2 = par.Cadr();
         }
 
-        public override Symbol Eval(VariablesEnvironment env)
+        public override Sexpr Eval(VariablesEnvironment env)
         {
             var v1 = Convert.ToInt32(this.param1.Eval(env).ToString());
             var v2 = Convert.ToInt32(this.param2.Eval(env).ToString());

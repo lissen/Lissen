@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public class List : List<Symbol>, Symbol
+    public class List : List<Sexpr>, Sexpr
     {
-        public Symbol Car()
+        public Sexpr Car()
         {
             return this[0];
         }
@@ -19,17 +19,17 @@ namespace Lissen
             return this;
         }
 
-        public Symbol Cadr()
+        public Sexpr Cadr()
         {
             return this[1];
         }
 
-        public Symbol Caddr()
+        public Sexpr Caddr()
         {
             return this[2];
         }
 
-        public Symbol Eval(VariablesEnvironment env)
+        public Sexpr Eval(VariablesEnvironment env)
         {
             NumericOperator op = new NumericOperator(this.Car() as Atom, this.Cdr());
             return op.Eval(env);

@@ -5,7 +5,7 @@ namespace Lissen
     public class Evaluator
     {
 
-        public Symbol Eval(Symbol s, VariablesEnvironment env)
+        public Sexpr Eval(Sexpr s, VariablesEnvironment env)
         {
             if (s is Nil) return s;
             if (s is Atom)
@@ -24,13 +24,13 @@ namespace Lissen
                 case "quote":
                     return list.Cadr();
                 case "define":
-                    Symbol value = Eval(list.Caddr(), env);
+                    Sexpr value = Eval(list.Caddr(), env);
                     env.Define(list.Cadr() as Atom, value);
                     return value;
             }
 
-            Symbol eval1 = Eval(list.Cadr(), env);
-            Symbol eval2 = Eval(list.Caddr(), env);
+            Sexpr eval1 = Eval(list.Cadr(), env);
+            Sexpr eval2 = Eval(list.Caddr(), env);
             var v1 = Convert.ToInt32(eval1.ToString());
             var v2 = Convert.ToInt32(eval2.ToString());
 

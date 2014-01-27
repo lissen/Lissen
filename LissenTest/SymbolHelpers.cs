@@ -24,19 +24,19 @@ namespace LissenTest
             return list;
         }
 
-        protected List l(Symbol[] symList)
+        protected List l(Sexpr[] symList)
         {
             List list = new List();
-            foreach (Symbol s in symList)
+            foreach (Sexpr s in symList)
             {
                 list.Add(s);
             }
             return list;
         }
 
-        protected Symbol quote(Symbol s)
+        protected Sexpr quote(Sexpr s)
         {
-            return l(new Symbol[] { a("quote"), s });
+            return l(new Sexpr[] { a("quote"), s });
         }
     }
 }

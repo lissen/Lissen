@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public class Function : Symbol
+    public class Function : Sexpr
     {
-        public virtual Symbol Eval(VariablesEnvironment env)
+        public virtual Sexpr Eval(VariablesEnvironment env)
         {
             throw new NotImplementedException();
         }

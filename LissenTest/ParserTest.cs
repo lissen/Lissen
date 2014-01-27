@@ -42,7 +42,7 @@ namespace LissenTest
         public void DeepList()
         {
             Parser parser = new Parser();
-            List edabcf = l(new Symbol[] {atom("e"), dabc(), atom("f")});
+            List edabcf = l(new Sexpr[] {atom("e"), dabc(), atom("f")});
             Assert.AreEqual(edabcf, parser.Parse("(e (d ((a b) c)) f)"));          
         }
 
@@ -69,12 +69,12 @@ namespace LissenTest
 
         private List abc()
         {
-            return l(new Symbol[] {ab(), atom("c")});
+            return l(new Sexpr[] {ab(), atom("c")});
         }
 
         private List dabc()
         {
-            return l(new Symbol[] {atom("d"), abc()});
+            return l(new Sexpr[] {atom("d"), abc()});
         }
 
         private Atom atom(string s)
@@ -82,7 +82,7 @@ namespace LissenTest
             return Atom.s(s);
         }
 
-        private List l(Symbol[] symbols)
+        private List l(Sexpr[] symbols)
         {
             List list = new List();
             list.AddRange(symbols);

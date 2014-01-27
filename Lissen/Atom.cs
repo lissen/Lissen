@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public class Atom : Symbol
+    public class Atom : Sexpr
     {
         private string AsString;
 
@@ -17,7 +17,7 @@ namespace Lissen
             return a;
         }
 
-        public Symbol Eval(VariablesEnvironment env)
+        public Sexpr Eval(VariablesEnvironment env)
         {
             return this;
         }
