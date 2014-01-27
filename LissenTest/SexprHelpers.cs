@@ -7,7 +7,7 @@ using Lissen;
 
 namespace LissenTest
 {
-    public class SymbolHelpers
+    public class SexprHelpers
     {
         protected Atom a(string s)
         {

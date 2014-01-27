@@ -5,13 +5,14 @@ using Lissen;
 namespace LissenTest
 {
     [TestClass]
-    public class NumericOperatorTest : SymbolHelpers
+    public class NumericOperatorTest : SexprHelpers
     {
+
         [TestMethod]
-        public void String()
+        public void AcceptedOperatorsq()
         {
-            var add = new NumericOperator(Atom.s("+"), l(new[] { "2", "3" }));
-            Assert.AreEqual("(+ 2 3)", add.ToString());
+            Assert.IsTrue(NumericOperator.IsAccepted(Atom.s("+")));
+            Assert.IsFalse(NumericOperator.IsAccepted(Atom.s("dummy")));
         }
 
         [TestMethod]
@@ -19,8 +20,8 @@ namespace LissenTest
         {
             var env = new VariablesEnvironment();
             List par = l(new[] { "2", "3" });
-            NumericOperator add = new NumericOperator(Atom.s("+"), par);
-            Assert.AreEqual(Atom.s("5"), add.Eval(env));
+            NumericOperator add = new NumericOperator(Atom.s("+"));
+            Assert.AreEqual(Atom.s("5"), add.ApplyOn(par, env));
         }
 
         //[TestMethod]

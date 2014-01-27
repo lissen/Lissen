@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Lissen
 {
-    public class Lambda : Function
+    public class Lambda : Function, Sexpr
     {
-        private List vars;
-        private List form;
+        private Sexpr form;
 
-        public Lambda(List vars, List form)
+        public Lambda(Sexpr form)
         {
-            this.vars = vars;
             this.form = form;
+        }
+
+        public override Sexpr ApplyOn(List par, VariablesEnvironment env)
+        {
+            return form.Eval(env);
         }
     }
 }

@@ -5,7 +5,7 @@ using Lissen;
 namespace LissenTest
 {
     [TestClass]
-    public class ListTest : SymbolHelpers
+    public class ListTest : SexprHelpers
     {
         private List abc;
 
@@ -47,11 +47,32 @@ namespace LissenTest
             Assert.AreEqual(a("5"), list.Eval(env));
         }
 
+        [TestMethod]
         public void EvalNestedLists()
         {
             VariablesEnvironment env = new VariablesEnvironment();
-            List list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" })});
+            List list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" }) });
             Assert.AreEqual(a("8"), list.Eval(env));
+        }
+        
+        [TestMethod]
+        public void EvalLambda()
+        {
+            VariablesEnvironment env = new VariablesEnvironment();
+            Assert.IsTrue(Lambda().Eval(env) is Function);
+        }
+
+        [TestMethod]
+        public void EvalLambdaApply()
+        {
+            VariablesEnvironment env = new VariablesEnvironment();           
+            List list = l(new Sexpr[] { Lambda(), a("3") });
+            Assert.AreEqual(a("5"), list.Eval(env));
+        }
+
+        private List Lambda()
+        {
+            return l(new Sexpr[] { a("lambda"), l(new[] { "+", "2", "3" }) });
         }
     }
 }

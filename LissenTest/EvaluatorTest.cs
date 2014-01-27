@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace LissenTest
 {
     [TestClass]
-    public class EvaluatorTest : SymbolHelpers
+    public class EvaluatorTest : SexprHelpers
     {
         private Nil nil = new Nil();
         private Evaluator e;

@@ -57,7 +57,8 @@
     <Compile Include="PairTest.cs" />
     <Compile Include="AtomTest.cs" />
     <Compile Include="ListTest.cs" />
-    <Compile Include="SymbolHelpers.cs" />
+    <Compile Include="SexprHelpers.cs" />
+    <Compile Include="LambdaTest.cs" />
     <Compile Include="VariablesEnvironmentTest.cs" />
   </ItemGroup>
   <ItemGroup>

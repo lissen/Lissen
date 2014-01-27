@@ -9,20 +9,26 @@ namespace Lissen
     public class NumericOperator : Function
     {
         private string op;
-        private Sexpr param1;
-        private Sexpr param2;
 
-        public NumericOperator(Atom op, List par)
+        public static bool IsAccepted(Atom atom)
         {
-            this.op = op.ToString();
-            this.param1 = par.Car();
-            this.param2 = par.Cadr();
+            string[] accepted = { "+", "-" };
+            return accepted.Contains(atom.ToString());
         }
 
-        public override Sexpr Eval(VariablesEnvironment env)
+        public NumericOperator(Atom op)
         {
-            var v1 = Convert.ToInt32(this.param1.Eval(env).ToString());
-            var v2 = Convert.ToInt32(this.param2.Eval(env).ToString());
+            this.op = op.ToString();
+
+        }
+
+        public override Sexpr ApplyOn(List par, VariablesEnvironment env)
+        {
+            Sexpr param1 = par.Car();
+            Sexpr param2 = par.Cadr();
+
+            var v1 = Convert.ToInt32(param1.Eval(env).ToString());
+            var v2 = Convert.ToInt32(param2.Eval(env).ToString());
 
             switch (this.op)
             {
@@ -33,11 +39,6 @@ namespace Lissen
             }
 
             throw new NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return String.Format("({0} {1} {2})", op, param1.ToString(), param2.ToString());
         }
     }
 }

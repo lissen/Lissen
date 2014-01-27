@@ -31,10 +31,14 @@ namespace Lissen
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            NumericOperator op = new NumericOperator(this.Car() as Atom, this.Cdr());
-            return op.Eval(env);
+            if (this.Car().ToString() == "lambda") return new Lambda(this.Cadr());
+
+            Function op = this.Car().Eval(env) as Function;
+
+            return op.ApplyOn(this.Cdr(), env);
         }
 
+        #region ToString
         public override string ToString()
         {
             return "(" + String.Join(" ", this) + ")";
@@ -62,7 +66,6 @@ namespace Lissen
         {
             return this.ToString().GetHashCode();
         }
-
-
+        #endregion
     }
 }
