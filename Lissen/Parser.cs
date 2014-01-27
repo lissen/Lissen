@@ -7,18 +7,21 @@ namespace Lissen
     {
         private Queue<string> tokens;
 
-        public Sexpr Parse(string rawString)
+        public List<Sexpr> Parse(string rawString)
         {
             string preparedString = rawString.Replace("(", " ( ").Replace(")", " ) ").Trim();
-            string[] splittedString = preparedString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] splittedString = preparedString.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             this.tokens = new Queue<string>(splittedString);
 
-            Sexpr result = ParseTokens();
+            List<Sexpr> parsed = new List<Sexpr>();
 
-            if(tokens.Count>0) throw new Exception("unexpected end of list");
+            while (tokens.Count > 0)
+            {
+                parsed.Add(ParseTokens());
+            }
 
-            return result;
+            return parsed;
         }
 
         private Sexpr ParseTokens()

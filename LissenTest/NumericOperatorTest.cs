@@ -9,7 +9,7 @@ namespace LissenTest
     {
 
         [TestMethod]
-        public void AcceptedOperatorsq()
+        public void AcceptedOperators()
         {
             Assert.IsTrue(NumericOperator.IsAccepted(Atom.s("+")));
             Assert.IsFalse(NumericOperator.IsAccepted(Atom.s("dummy")));

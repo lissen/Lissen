@@ -23,20 +23,22 @@ namespace LissenRepl
 
             while(true)
             {
-                Console.Write(">");
+                Console.Write("> ");
                 string userInput = Console.ReadLine();
 
                 string result;
                 try
                 {
-                    result = evaluator.Eval(parser.Parse(userInput), globalEnv).ToString();
+                    foreach (Sexpr sexpr in parser.Parse(userInput))
+                    {
+                        result = evaluator.Eval(sexpr, globalEnv).ToString();
+                        Console.WriteLine(result);
+                    }                    
                 }
                 catch(Exception e)
                 {
-                    result = "Error: " + e.Message;
+                    Console.WriteLine("Error: " + e.Message);
                 }
-                
-                Console.WriteLine(result);
             }            
         }
     }

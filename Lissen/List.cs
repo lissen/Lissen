@@ -31,11 +31,12 @@ namespace Lissen
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            if (this.Car().ToString() == "lambda") return new Lambda(this.Cadr());
+            string op = this.Car().ToString();
+            if (op == "lambda") return new Lambda(this.Cadr());
 
-            Function op = this.Car().Eval(env) as Function;
+            Function fun = this.Car().Eval(env) as Function;
 
-            return op.ApplyOn(this.Cdr(), env);
+            return fun.ApplyOn(this.Cdr(), env);
         }
 
         #region ToString

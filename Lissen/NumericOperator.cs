@@ -19,7 +19,6 @@ namespace Lissen
         public NumericOperator(Atom op)
         {
             this.op = op.ToString();
-
         }
 
         public override Sexpr ApplyOn(List par, VariablesEnvironment env)

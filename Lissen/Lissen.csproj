@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Define.cs" />
     <Compile Include="NumericOperator.cs" />
     <Compile Include="Atom.cs" />
     <Compile Include="Function.cs" />

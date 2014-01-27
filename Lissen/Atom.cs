@@ -20,6 +20,8 @@ namespace Lissen
         public Sexpr Eval(VariablesEnvironment env)
         {
             if (NumericOperator.IsAccepted(this)) return new NumericOperator(this);
+            if (AsString == "define") return new Define();
+            if (env.IsDefined(this)) return env.Find(this);
             return this;
         }
 

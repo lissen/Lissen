@@ -8,11 +8,13 @@ namespace LissenTest
     public class ListTest : SexprHelpers
     {
         private List abc;
+        private VariablesEnvironment env;
 
         [TestInitialize]
         public void SetUp()
         {
             abc = l(new[] { "a", "b", "c" });
+            env = new VariablesEnvironment();
         }
 
         [TestMethod]
@@ -54,7 +56,15 @@ namespace LissenTest
             List list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" }) });
             Assert.AreEqual(a("8"), list.Eval(env));
         }
-        
+
+
+        [TestMethod]
+        public void EvalDefine()
+        {
+            define("x", a("3"));
+            Assert.AreEqual(Atom.s("6"), l(new[] { "+", "x", "3" }).Eval(env));
+        }
+
         [TestMethod]
         public void EvalLambda()
         {
@@ -73,6 +83,12 @@ namespace LissenTest
         private List Lambda()
         {
             return l(new Sexpr[] { a("lambda"), l(new[] { "+", "2", "3" }) });
+        }
+
+        private void define(string variableName, Sexpr value)
+        {
+            var definition = l(new Sexpr[] { a("define"), a(variableName), value });
+            definition.Eval(env);
         }
     }
 }
