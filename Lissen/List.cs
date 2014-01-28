@@ -15,8 +15,9 @@ namespace Lissen
 
         public List Cdr()
         {
-            this.RemoveAt(0);
-            return this;
+            List cdrList = new List();
+            cdrList.AddRange(this.Skip(1));
+            return cdrList;
         }
 
         public Sexpr Cadr()

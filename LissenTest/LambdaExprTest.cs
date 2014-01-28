@@ -25,6 +25,7 @@ namespace LissenTest
             List form = l(new[] { "+", "x", "3" });
             LambdaExpr lamb = new LambdaExpr(par, form);
             Assert.AreEqual(a("5"), lamb.ApplyOn(l(new[] { "2" }), env));
+            Assert.AreEqual(a("6"), lamb.ApplyOn(l(new[] { "3" }), env));
         }
     }
 }

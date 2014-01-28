@@ -18,7 +18,6 @@ namespace LissenRepl
 
             VariablesEnvironment globalEnv = new VariablesEnvironment();
 
-            Evaluator evaluator = new Evaluator();
             Parser parser = new Parser();
 
             while(true)
@@ -26,12 +25,11 @@ namespace LissenRepl
                 Console.Write("> ");
                 string userInput = Console.ReadLine();
 
-                string result;
                 try
                 {
                     foreach (Sexpr sexpr in parser.Parse(userInput))
                     {
-                        result = evaluator.Eval(sexpr, globalEnv).ToString();
+                        string result = sexpr.Eval(globalEnv).ToString();
                         Console.WriteLine(result);
                     }                    
                 }
