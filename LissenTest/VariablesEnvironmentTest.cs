@@ -42,5 +42,16 @@ namespace LissenTest
             Assert.IsTrue(env.IsDefined(a("lambda")));
             Assert.IsTrue(env.Find(a("+")) is Function);
         }
+
+        [TestMethod]
+        public void NestedEnv()
+        {
+            var parentEnv = new VariablesEnvironment();
+            parentEnv.Define(a("x"), a("3"));
+            var env = new VariablesEnvironment(parentEnv);
+            env.Define(a("y"), a("4"));
+            Assert.AreEqual(a("3"), env.Find(a("x")));
+            Assert.AreEqual(a("4"), env.Find(a("y")));
+        }
     }
 }

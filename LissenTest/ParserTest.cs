@@ -47,6 +47,15 @@ namespace LissenTest
         }
 
         [TestMethod]
+        public void EmptyList()
+        {
+            Parser parser = new Parser();
+            Assert.AreEqual(new List(), parser.Parse("()")[0]);
+            List listOfEmptyList = l(new Sexpr[] { new List() });
+            Assert.AreEqual(listOfEmptyList, parser.Parse("(())")[0]);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void ErrorNoEnd()
         {

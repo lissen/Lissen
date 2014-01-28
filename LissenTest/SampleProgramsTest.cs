@@ -17,12 +17,22 @@ namespace LissenTest
         }
 
         [TestMethod]
-        public void Lambda()
+        public void EvalLambda()
         {
             var program = @"
-                ((lambda ( + 2 3))
-                2)";
+                (define x 4)
+                ((lambda (x) (+ x 3)) 2)";
             Assert.AreEqual(a("5"), evalProgram(program));                    
+        }
+
+        [TestMethod]
+        public void DefineLambda()
+        {
+            var program = @"
+                (define x 2)
+                (define add (lambda (x) (+ x 7)))
+                (add 2)";
+            Assert.AreEqual(a("9"), evalProgram(program));
         }
 
         private Sexpr evalProgram(string s)
@@ -38,6 +48,5 @@ namespace LissenTest
 
             return lastOne;
         }
-
     }
 }

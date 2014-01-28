@@ -9,6 +9,7 @@ namespace Lissen
     public class VariablesEnvironment
     {
         private Dictionary<Atom, Sexpr> variables = new Dictionary<Atom, Sexpr>();
+        private VariablesEnvironment parentEnv = null;
 
         public VariablesEnvironment()
         {
@@ -16,6 +17,11 @@ namespace Lissen
             addBuildIn("-", new NumericOperator(Atom.s("-")));
             addBuildIn("define", new Define());
             addBuildIn("lambda", new Lambda());
+        }
+
+        public VariablesEnvironment(VariablesEnvironment parentEnv)
+        {            
+            this.parentEnv = parentEnv;
         }
 
         private void addBuildIn(string s, Sexpr form)
@@ -38,7 +44,8 @@ namespace Lissen
             Sexpr value;
             if (!variables.TryGetValue(atom, out value))
             {
-                throw new Exception("Variable undefined: " + atom.ToString());
+                if (parentEnv != null) return parentEnv.Find(atom);
+                else throw new Exception("Variable undefined: " + atom.ToString());
             }
             return value;
         }

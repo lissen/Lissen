@@ -82,7 +82,7 @@ namespace LissenTest
 
         private List Lambda()
         {
-            return l(new Sexpr[] { a("lambda"), l(new[] { "+", "2", "3" }) });
+            return l(new Sexpr[] { a("lambda"), l(new Sexpr[] { }), l(new[] { "+", "2", "3" }) });
         }
 
         private void define(string variableName, Sexpr value)

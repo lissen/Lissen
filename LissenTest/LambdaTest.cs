@@ -11,10 +11,12 @@ namespace LissenTest
         public void LambdaCreation()
         {
             var env = new VariablesEnvironment();
-            List form = l(new Sexpr[] { l(new[] { "+", "2", "3" }) });
+            List par = l(new Sexpr[] {  });
+            List form = l(new[] { "+", "2", "3" });
+            List definition = l(new Sexpr[] { par, form  });
             Lambda lambMaker = new Lambda();
 
-            Sexpr lamb = lambMaker.ApplyOn(form, env);
+            Sexpr lamb = lambMaker.ApplyOn(definition, env);
 
             Assert.IsTrue(lamb is Function);
             Assert.AreEqual(a("5"), (lamb as Function).ApplyOn(l(new []{ "2" }), env));
