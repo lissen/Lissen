@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DefineTest.cs" />
+    <Compile Include="IfTest.cs" />
     <Compile Include="LambdaTest.cs" />
     <Compile Include="NumericOperatorTest.cs" />
     <Compile Include="ParserTest.cs" />

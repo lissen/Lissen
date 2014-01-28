@@ -10,12 +10,6 @@ namespace Lissen
     {
         private string op;
 
-        public static bool IsAccepted(Atom atom)
-        {
-            string[] accepted = { "+", "-" };
-            return accepted.Contains(atom.ToString());
-        }
-
         public NumericOperator(Atom op)
         {
             this.op = op.ToString();
@@ -39,6 +33,9 @@ namespace Lissen
                     return Atom.s(Convert.ToString(v1 * v2));
                 case "/":
                     return Atom.s(Convert.ToString(v1 / v2));
+                case "=":
+                    if (param1.Eval(env).Equals(param2.Eval(env))) return new True();
+                    return new Nil();
             }
 
             throw new NotImplementedException();

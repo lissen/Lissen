@@ -17,8 +17,11 @@ namespace Lissen
             addBuildIn("-", new NumericOperator(Atom.s("-")));
             addBuildIn("*", new NumericOperator(Atom.s("*")));
             addBuildIn("/", new NumericOperator(Atom.s("/")));
+            addBuildIn("=", new NumericOperator(Atom.s("=")));
             addBuildIn("define", new Define());
             addBuildIn("lambda", new Lambda());
+            addBuildIn("if", new If());
+            addBuildIn("begin", new Begin());
         }
 
         public VariablesEnvironment(VariablesEnvironment parentEnv)

@@ -35,6 +35,29 @@ namespace LissenTest
             Assert.AreEqual(a("9"), evalProgram(program));
         }
 
+        [TestMethod]
+        public void If()
+        {
+            var program = @"
+                (define x 2)
+                (if (= 2 2) good notgood)";
+            Assert.AreEqual(a("good"), evalProgram(program));
+        }
+
+//        [TestMethod]
+//        public void Recursive()
+//        {
+//            var program = @"
+//                (define rec 
+//                    (lambda (x acc) 
+//                        (if (= x 0) 
+//                            acc 
+//                            (rec (- x 1) (* acc 2))
+//                         )))
+//                (rec 3 1)";
+//            Assert.AreEqual(a("8"), evalProgram(program));
+//        }
+
         private Sexpr evalProgram(string s)
         {
             Parser parser = new Parser();

@@ -8,7 +8,7 @@ namespace Lissen
 {
     public class Atom : Sexpr
     {
-        private string AsString;
+        protected string AsString;
 
         public static Atom s(string s)
         {
@@ -19,8 +19,6 @@ namespace Lissen
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            //if (NumericOperator.IsAccepted(this)) return new NumericOperator(this);
-            //if (AsString == "define") return new Define();
             if (env.IsDefined(this)) return env.Find(this);
             return this;
         }
@@ -43,7 +41,5 @@ namespace Lissen
         {
             return this.AsString.GetHashCode();
         }
-
-
     }
 }
