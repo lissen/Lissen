@@ -15,6 +15,8 @@ namespace Lissen
         {
             addBuildIn("+", new NumericOperator(Atom.s("+")));
             addBuildIn("-", new NumericOperator(Atom.s("-")));
+            addBuildIn("*", new NumericOperator(Atom.s("*")));
+            addBuildIn("/", new NumericOperator(Atom.s("/")));
             addBuildIn("define", new Define());
             addBuildIn("lambda", new Lambda());
         }
@@ -31,7 +33,9 @@ namespace Lissen
 
         public bool IsDefined(Atom variable)
         {
-            return variables.ContainsKey(variable);
+            if (variables.ContainsKey(variable)) return true;
+            if (parentEnv != null) return parentEnv.IsDefined(variable);
+            return false;
         }
 
         public void Define(Atom variable, Sexpr value)

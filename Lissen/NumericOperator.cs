@@ -34,7 +34,11 @@ namespace Lissen
                 case "+":
                     return Atom.s(Convert.ToString(v1 + v2));   
                 case "-":
-                    return Atom.s(Convert.ToString(v1 - v2));   
+                    return Atom.s(Convert.ToString(v1 - v2));
+                case "*":
+                    return Atom.s(Convert.ToString(v1 * v2));
+                case "/":
+                    return Atom.s(Convert.ToString(v1 / v2));
             }
 
             throw new NotImplementedException();

@@ -52,6 +52,7 @@ namespace LissenTest
             env.Define(a("y"), a("4"));
             Assert.AreEqual(a("3"), env.Find(a("x")));
             Assert.AreEqual(a("4"), env.Find(a("y")));
+            Assert.IsTrue(env.IsDefined(a("x")));
         }
     }
 }

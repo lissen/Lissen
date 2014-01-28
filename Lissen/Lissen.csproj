@@ -42,7 +42,6 @@
     <Compile Include="Function.cs" />
     <Compile Include="LambdaExpr.cs" />
     <Compile Include="VariablesEnvironment.cs" />
-    <Compile Include="Evaluator.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Nil.cs" />
     <Compile Include="Pair.cs" />
