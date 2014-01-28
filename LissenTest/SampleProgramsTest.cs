@@ -16,6 +16,15 @@ namespace LissenTest
             Assert.AreEqual(a("5"), evalProgram(program));                    
         }
 
+        [TestMethod]
+        public void Lambda()
+        {
+            var program = @"
+                ((lambda ( + 2 3))
+                2)";
+            Assert.AreEqual(a("5"), evalProgram(program));                    
+        }
+
         private Sexpr evalProgram(string s)
         {
             Parser parser = new Parser();

@@ -31,9 +31,6 @@ namespace Lissen
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            string op = this.Car().ToString();
-            if (op == "lambda") return new Lambda(this.Cadr());
-
             Function fun = this.Car().Eval(env) as Function;
 
             return fun.ApplyOn(this.Cdr(), env);

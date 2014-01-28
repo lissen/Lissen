@@ -10,6 +10,19 @@ namespace Lissen
     {
         private Dictionary<Atom, Sexpr> variables = new Dictionary<Atom, Sexpr>();
 
+        public VariablesEnvironment()
+        {
+            addBuildIn("+", new NumericOperator(Atom.s("+")));
+            addBuildIn("-", new NumericOperator(Atom.s("-")));
+            addBuildIn("define", new Define());
+            addBuildIn("lambda", new Lambda());
+        }
+
+        private void addBuildIn(string s, Sexpr form)
+        {
+            variables.Add(Atom.s(s), form);
+        }
+
         public bool IsDefined(Atom variable)
         {
             return variables.ContainsKey(variable);
@@ -20,12 +33,12 @@ namespace Lissen
             variables.Add(variable, value);
         }
 
-        public Sexpr Find(Atom variable)
+        public Sexpr Find(Atom atom)
         {
             Sexpr value;
-            if (!variables.TryGetValue(variable, out value))
+            if (!variables.TryGetValue(atom, out value))
             {
-                throw new Exception("Variable undefined: " + variable.ToString());
+                throw new Exception("Variable undefined: " + atom.ToString());
             }
             return value;
         }

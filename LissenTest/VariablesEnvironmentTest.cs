@@ -5,32 +5,42 @@ using Lissen;
 namespace LissenTest
 {
     [TestClass]
-    public class VariablesEnvironmentTest
+    public class VariablesEnvironmentTest : SexprHelpers
     {
         [TestMethod]
         public void StoreVariable()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            Assert.IsFalse(env.IsDefined(Atom.s("a")));
+            var env = new VariablesEnvironment();
+            Assert.IsFalse(env.IsDefined(a("a")));
             
-            env.Define(Atom.s("a"), Atom.s("1"));
+            env.Define(a("a"), a("1"));
             
-            Assert.IsTrue(env.IsDefined(Atom.s("a")));
-            Assert.AreEqual(Atom.s("1"), env.Find(Atom.s("a")));
+            Assert.IsTrue(env.IsDefined(a("a")));
+            Assert.AreEqual(a("1"), env.Find(a("a")));
         }
 
         [TestMethod]        
         public void UnknownVariableThrowException()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
+            var env = new VariablesEnvironment();
             try
             {
-                env.Find(Atom.s("a"));
+                env.Find(a("a"));
             }
             catch (Exception ex)
             {
                 Assert.IsTrue(ex.Message.Contains("Variable undefined"));                  
             }            
+        }
+
+        [TestMethod]
+        public void BuildInFunctions()
+        {
+            var env = new VariablesEnvironment();
+            Assert.IsTrue(env.IsDefined(a("define")));
+            Assert.IsTrue(env.IsDefined(a("+")));
+            Assert.IsTrue(env.IsDefined(a("lambda")));
+            Assert.IsTrue(env.Find(a("+")) is Function);
         }
     }
 }

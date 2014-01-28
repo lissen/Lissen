@@ -8,12 +8,16 @@ namespace LissenTest
     public class LambdaTest : SexprHelpers
     {
         [TestMethod]
-        public void Apply()
+        public void LambdaCreation()
         {
             var env = new VariablesEnvironment();
-            List form = l(new[] { "+", "2", "3" });
-            Lambda lamb = new Lambda(form);
-            Assert.AreEqual(a("5"), lamb.ApplyOn(null, env));
+            List form = l(new Sexpr[] { l(new[] { "+", "2", "3" }) });
+            Lambda lambMaker = new Lambda();
+
+            Sexpr lamb = lambMaker.ApplyOn(form, env);
+
+            Assert.IsTrue(lamb is Function);
+            Assert.AreEqual(a("5"), (lamb as Function).ApplyOn(l(new []{ "2" }), env));
         }
     }
 }
