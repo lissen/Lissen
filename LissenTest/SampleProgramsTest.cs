@@ -71,6 +71,29 @@ namespace LissenTest
             Assert.AreEqual(a("8"), evalProgram(program));
         }
 
+        [TestMethod]
+        public void DefineFunction()
+        {
+            var program = @"
+                (define (add x y)
+                    (+ x y)) 
+                (add 3 1)";
+            Assert.AreEqual(a("4"), evalProgram(program));
+        }
+
+        [TestMethod]
+        public void DefineRecursiveFunction()
+        {
+            var program = @"
+                (define (fib n)
+                    (if (= n 0) 1
+                    (if (= n 1) 1                        
+                        (+ (fib (- n 1)) (fib (- n 2)))
+                    )))
+                (fib 8)";
+            Assert.AreEqual(a("34"), evalProgram(program));
+        }
+
         private Sexpr evalProgram(string s)
         {
             Parser parser = new Parser();
