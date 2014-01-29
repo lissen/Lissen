@@ -17,18 +17,19 @@ namespace Lissen
             this.form = form;
         }
 
-        public override Sexpr ApplyOn(List par, VariablesEnvironment parentEnv)
+        public override Sexpr ApplyOn(List args, VariablesEnvironment parentEnv)
         {
             var env = new VariablesEnvironment(parentEnv);
 
             var itLambdaPar = this.par.GetEnumerator();
-            var itApplyPar = par.GetEnumerator();
+            var itApplyArg = args.GetEnumerator();
 
             while (itLambdaPar.MoveNext())
             {
-                itApplyPar.MoveNext();
+                itApplyArg.MoveNext();
 
-                env.Define(itLambdaPar.Current as Atom, itApplyPar.Current);
+                var argValue = itApplyArg.Current.Eval(env);
+                env.Define(itLambdaPar.Current as Atom, argValue);
             }
 
             return form.Eval(env);
