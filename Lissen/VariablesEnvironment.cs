@@ -22,6 +22,7 @@ namespace Lissen
             addBuildIn("lambda", new Lambda());
             addBuildIn("if", new If());
             addBuildIn("begin", new Begin());
+            addBuildIn("cond", new Cond());
         }
 
         public VariablesEnvironment(VariablesEnvironment parentEnv)
