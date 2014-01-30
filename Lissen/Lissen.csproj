@@ -36,6 +36,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Begin.cs" />
+    <Compile Include="Cdr.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="Quote.cs" />
     <Compile Include="Define.cs" />
     <Compile Include="Cond.cs" />
     <Compile Include="If.cs" />
