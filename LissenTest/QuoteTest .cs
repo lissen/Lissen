@@ -1,19 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class QuoteTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void Quote()
         {
             var env = new VariablesEnvironment();
             var arg = l(new Sexpr[] {l(new[] { "+", "1", "2"})});
             var quoteFunction = new Quote();
-            Assert.AreEqual(l(new[] { "+", "1", "2" }), quoteFunction.ApplyOn(arg, env));
+            Check.That(quoteFunction.ApplyOn(arg, env)).Equals(l(new[] {"+", "1", "2"}));
         }
     }
 }

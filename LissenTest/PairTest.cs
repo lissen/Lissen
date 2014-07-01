@@ -1,28 +1,27 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class PairTest
     {
-        [TestMethod]
+        [Test]
         public void ConsSymbols()
         {
-            Pair p = Pair.Cons(Atom.s("1"), Atom.s("2"));
+            var p = Pair.Cons(Atom.s("1"), Atom.s("2"));
 
-            Assert.AreEqual("1", p.Car.ToString());
-            Assert.AreEqual("2", p.Cdr.ToString());
+            Check.That(p.Car.ToString()).Equals("1");
+            Check.That(p.Cdr.ToString()).Equals("2");
         }
 
-        [TestMethod]
+        [Test]
         public void ConsPairs()
         {
-            Pair p = Pair.Cons(Atom.s("1"), Pair.Cons(Atom.s("2"), null));
+            var p = Pair.Cons(Atom.s("1"), Pair.Cons(Atom.s("2"), null));
 
-            Assert.AreEqual("2", ((Pair)p.Cdr).Car.ToString());
-            Assert.AreEqual(null, ((Pair)p.Cdr).Cdr);
+            Check.That(((Pair) p.Cdr).Car.ToString()).Equals("2");
+            Check.That(((Pair) p.Cdr).Cdr).IsNull();
         }
     }
 }

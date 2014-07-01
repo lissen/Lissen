@@ -1,23 +1,22 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class CondTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void CondTrue()
         {
             var env = new VariablesEnvironment();
             var cond1 = l(new[] { "#t", "a"});
             var par = l(new Sexpr[] { cond1 });
             var condFunction = new Cond();
-            Assert.AreEqual(Atom.s("a"), condFunction.ApplyOn(par, env));
+            Check.That(condFunction.ApplyOn(par, env)).Equals(Atom.s("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void CondLastIsTrue()
         {
             var env = new VariablesEnvironment();
@@ -25,10 +24,10 @@ namespace LissenTest
             var cond2 = l(new[] { "#t", "b" });
             var par = l(new Sexpr[] { cond1, cond2 });
             var condFunction = new Cond();
-            Assert.AreEqual(a("b"), condFunction.ApplyOn(par, env));
+            Check.That(condFunction.ApplyOn(par, env)).Equals(a("b"));
         }
 
-        [TestMethod]
+        [Test]
         public void CondAllFalse()
         {
             var env = new VariablesEnvironment();
@@ -36,10 +35,10 @@ namespace LissenTest
             var cond2 = l(new[] { "()", "b" });
             var par = l(new Sexpr[] { cond1, cond2 });
             var condFunction = new Cond();
-            Assert.AreEqual(new Nil(), condFunction.ApplyOn(par, env));
+            Check.That(condFunction.ApplyOn(par, env)).Equals(new Nil());
         }
 
-        [TestMethod]
+        [Test]
         public void CondWithElse()
         {
             var env = new VariablesEnvironment();
@@ -48,7 +47,7 @@ namespace LissenTest
             var cond3 = l(new[] { "else", "c" });
             var par = l(new Sexpr[] { cond1, cond2, cond3 });
             var condFunction = new Cond();
-            Assert.AreEqual(a("c"), condFunction.ApplyOn(par, env));
+            Check.That(condFunction.ApplyOn(par, env)).Equals(a("c"));
         }
     }
 }

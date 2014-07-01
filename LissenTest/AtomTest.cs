@@ -1,33 +1,32 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class AtomTest
     {
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
-            Atom a = Atom.s("abc");
-            Assert.AreEqual("abc", a.ToString());
+            var a = Atom.s("abc");
+            Check.That(a.ToString()).Equals("abc");            
         }
 
-        [TestMethod]
+        [Test]
         public void Eval()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            Atom a = Atom.s("abc");
-            Assert.AreEqual(Atom.s("abc"), a.Eval(env));
+            var env = new VariablesEnvironment();
+            var a = Atom.s("abc");
+            Check.That(a.Eval(env)).Equals(Atom.s("abc"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvalOperator()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            Atom a = Atom.s("+");
-            Assert.IsTrue(a.Eval(env) is NumericOperator);
+            var env = new VariablesEnvironment();
+            var a = Atom.s("+");
+            Check.That(a.Eval(env) is NumericOperator).IsTrue();
         }
     }
 }

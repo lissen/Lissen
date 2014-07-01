@@ -1,100 +1,100 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lissen;
+using NFluent;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
+using List = Lissen.List;
 
 namespace LissenTest
 {
-    [TestClass]
     public class ParserTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void LonesomeAtom()
         {
-            Parser p = new Parser();
-            Assert.AreEqual(a("a"), p.Parse("a")[0]);
+            var p = new Parser();
+            Check.That(p.Parse("a")[0]).Equals(a("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void ListOfOneAtom()
         {
-            Parser parser = new Parser();
-            Assert.AreEqual(l(new[] { a("a") }), parser.Parse("(a)")[0]);            
+            var parser = new Parser();
+            Check.That(parser.Parse("(a)")[0]).Equals(l(new[] {a("a")}));
         }
 
-        [TestMethod]
+        [Test]
         public void ListOfAtoms()
         {
-            Parser parser = new Parser();
-            Assert.AreEqual(ab(), parser.Parse("(a b)")[0]);                        
+            var parser = new Parser();
+            Check.That(parser.Parse("(a b)")[0]).Equals(ab());
         }
 
-        [TestMethod]
+        [Test]
         public void ListOfLists()
         {
-            Parser parser = new Parser();
-
-            Assert.AreEqual(abc(), parser.Parse("((a b) c)")[0]);
-
-            Assert.AreEqual(dabc(), parser.Parse("(d ((a b) c))")[0]);
+            var parser = new Parser();
+            Check.That(parser.Parse("((a b) c)")[0]).Equals(abc());
+            Check.That(parser.Parse("(d ((a b) c))")[0]).Equals(dabc());
         }
 
-        [TestMethod]
+        [Test]
         public void DeepList()
         {
-            Parser parser = new Parser();
-            List edabcf = l(new Sexpr[] {a("e"), dabc(), a("f")});
-            Assert.AreEqual(edabcf, parser.Parse("(e (d ((a b) c)) f)")[0]);          
+            var parser = new Parser();
+            var edabcf = l(new Sexpr[] {a("e"), dabc(), a("f")});
+            Check.That(parser.Parse("(e (d ((a b) c)) f)")[0]).Equals(edabcf);
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyList()
         {
-            Parser parser = new Parser();
+            var parser = new Parser();
             Assert.AreEqual(new List(), parser.Parse("()")[0]);
-            List listOfEmptyList = l(new Sexpr[] { new List() });
-            Assert.AreEqual(listOfEmptyList, parser.Parse("(())")[0]);
+            var listOfEmptyList = l(new Sexpr[] { new List() });
+            Check.That(parser.Parse("(())")[0]).Equals(listOfEmptyList);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void ErrorNoEnd()
         {
-            Parser parser = new Parser();
+            var parser = new Parser();
             parser.Parse("(e");
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void ErrorNoStart()
         {
-            Parser parser = new Parser();
+            var parser = new Parser();
             parser.Parse("(a b) d)");
         }
 
-        [TestMethod]
+        [Test]
         public void MultiLines()
         {
-            var lines = @"
+            const string lines = @"
                 (d ((a b)
                     c)
                 )";
-            Parser parser = new Parser();
-            Assert.AreEqual(dabc(), parser.Parse(lines)[0]);
+            var parser = new Parser();
+            Check.That(parser.Parse(lines)[0]).Equals(dabc());
         }
 
-        [TestMethod]
+        [Test]
         public void MultiSexpr()
         {
-            var lines = @"
+            const string lines = @"
                 ((a b) 
                     c)
 
                 (d ((a b)
                     c)
                 )";
-            Parser parser = new Parser();
-            Assert.AreEqual(abc(), parser.Parse(lines)[0]);
-            Assert.AreEqual(dabc(), parser.Parse(lines)[1]);
+            var parser = new Parser();
+            Check.That(parser.Parse(lines)[0]).Equals(abc());
+            Check.That(parser.Parse(lines)[1]).Equals(dabc());
         }
 
         private List ab()

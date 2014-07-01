@@ -1,19 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class CarTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void Car()
         {
             var env = new VariablesEnvironment();
             var arg = l(new[] { "a", "b", "c"});
             var carFunction = new Car();
-            Assert.AreEqual(a("a"), carFunction.ApplyOn(arg, env));
+            Check.That(carFunction.ApplyOn(arg, env)).Equals(a("a"));
         }
     }
 }

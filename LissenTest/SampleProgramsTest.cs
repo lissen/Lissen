@@ -1,66 +1,65 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class SampleProgramsTest : SexprHelpers 
     {
-        [TestMethod]
+        [Test]
         public void DefineVariable()
         {
-            var program = @"
+            const string program = @"
                 (define x 3)
                 (+ x 2)";
-            Assert.AreEqual(a("5"), evalProgram(program));                    
+            Check.That(evalProgram(program)).Equals(a("5"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvalLambda()
         {
-            var program = @"
+            const string program = @"
                 (define x 4)
                 ((lambda (x) (+ x 3)) 2)";
-            Assert.AreEqual(a("5"), evalProgram(program));                    
+            Check.That(evalProgram(program)).Equals(a("5"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineLambda()
         {
-            var program = @"
+            const string program = @"
                 (define x 2)
                 (define add (lambda (x) (+ x 7)))
                 (add 2)";
-            Assert.AreEqual(a("9"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("9"));
         }
 
-        [TestMethod]
+        [Test]
         public void If()
         {
-            var program = @"
+            const string program = @"
                 (define x 2)
                 (if (= 2 2) good notgood)";
-            Assert.AreEqual(a("good"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("good"));
         }
 
-        [TestMethod]
+        [Test]
         public void Recursive1()
         {
-            var program = @"
+            const string program = @"
                         (define rec 
                             (lambda (x) 
                                 (if (= x 0) end 
                                     (rec (- x 1))
                                  )))
                         (rec 3)";
-            Assert.AreEqual(a("end"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("end"));
         }
 
-        [TestMethod]
+        [Test]
         public void Recursive2()
         {
-            var program = @"
+            const string program = @"
                 (define rec 
                     (lambda (x acc) 
                         (if (= x 0) 
@@ -68,36 +67,36 @@ namespace LissenTest
                             (rec (- x 1) (* acc 2))
                          )))
                 (rec 3 1)";
-            Assert.AreEqual(a("8"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("8"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineFunction()
         {
-            var program = @"
+            const string program = @"
                 (define (add x y)
                     (+ x y)) 
                 (add 3 1)";
-            Assert.AreEqual(a("4"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("4"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineRecursiveFunction()
         {
-            var program = @"
+            const string program = @"
                 (define (fib n)
                     (if (= n 0) 1
                     (if (= n 1) 1                        
                         (+ (fib (- n 1)) (fib (- n 2)))
                     )))
                 (fib 8)";
-            Assert.AreEqual(a("34"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("34"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineRecursiveFib()
         {
-            var program = @"
+            const string program = @"
                 (define (fib n)
                     (cond 
                         ((= n 0) 1)
@@ -105,16 +104,16 @@ namespace LissenTest
                         (else (+ (fib (- n 1)) (fib (- n 2))))
                     ))
                 (fib 8)";
-            Assert.AreEqual(a("34"), evalProgram(program));
+            Check.That(evalProgram(program)).Equals(a("34"));
         }
 
         private Sexpr evalProgram(string s)
         {
-            Parser parser = new Parser();
+            var parser = new Parser();
             var env = new VariablesEnvironment();
 
             Sexpr lastOne = null;
-            foreach (Sexpr sexpr in parser.Parse(s))
+            foreach (var sexpr in parser.Parse(s))
             {
                 lastOne = sexpr.Eval(env);
             }

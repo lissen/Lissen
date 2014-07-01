@@ -1,28 +1,27 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class IfTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void IfEqual()
         {
             var env = new VariablesEnvironment();
             var par = l(new[] { "#t", "3", "4" });
             var si = new If();
-            Assert.AreEqual(Atom.s("3"), si.ApplyOn(par, env));
+            Check.That(si.ApplyOn(par, env)).Equals(Atom.s("3"));
         }
 
-        [TestMethod]
+        [Test]
         public void IfNotEqual()
         {
             var env = new VariablesEnvironment();
             var par = l(new[] { "()", "3", "4" });
             var si = new If();
-            Assert.AreEqual(Atom.s("4"), si.ApplyOn(par, env));
+            Check.That(si.ApplyOn(par, env)).Equals(Atom.s("4"));
         }
     }
 }

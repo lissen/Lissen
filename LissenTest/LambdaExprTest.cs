@@ -1,31 +1,32 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
+using List = Lissen.List;
 
 namespace LissenTest
 {
-    [TestClass]
     public class LambdaExprTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void ApplyLambdaWithoutParams()
         {
             var env = new VariablesEnvironment();
-            List par = new List();
-            List form = l(new[] { "+", "2", "3" });
-            LambdaExpr lamb = new LambdaExpr(par, form);
-            Assert.AreEqual(a("5"), lamb.ApplyOn(new List(), env));
+            var par = new List();
+            var form = l(new[] { "+", "2", "3" });
+            var lamb = new LambdaExpr(par, form);
+            Check.That(lamb.ApplyOn(new List(), env)).Equals(a("5"));
         }
 
-        [TestMethod]
+        [Test]
         public void ApplyLambdaWithParams()
         {
             var env = new VariablesEnvironment();
-            List par = l(new[] { "x" });
-            List form = l(new[] { "+", "x", "3" });
-            LambdaExpr lamb = new LambdaExpr(par, form);
-            Assert.AreEqual(a("5"), lamb.ApplyOn(l(new[] { "2" }), env));
-            Assert.AreEqual(a("6"), lamb.ApplyOn(l(new[] { "3" }), env));
+            var par = l(new[] { "x" });
+            var form = l(new[] { "+", "x", "3" });
+            var lamb = new LambdaExpr(par, form);
+
+            Check.That(lamb.ApplyOn(l(new[] {"2"}), env)).Equals(a("5"));
+            Check.That(lamb.ApplyOn(l(new[] {"3"}), env)).Equals(a("6"));
         }
     }
 }

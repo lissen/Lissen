@@ -1,25 +1,24 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class LambdaTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void LambdaCreation()
         {
             var env = new VariablesEnvironment();
-            List par = l(new Sexpr[] {  });
-            List form = l(new[] { "+", "2", "3" });
-            List definition = l(new Sexpr[] { par, form  });
-            Lambda lambMaker = new Lambda();
+            var par = l(new Sexpr[] {  });
+            var form = l(new[] { "+", "2", "3" });
+            var definition = l(new Sexpr[] { par, form  });
+            var lambMaker = new Lambda();
 
-            Sexpr lamb = lambMaker.ApplyOn(definition, env);
+            var lamb = lambMaker.ApplyOn(definition, env);
 
-            Assert.IsTrue(lamb is Function);
-            Assert.AreEqual(a("5"), (lamb as Function).ApplyOn(l(new []{ "2" }), env));
+            Check.That(lamb is Function).IsTrue();
+            Check.That((lamb as Function).ApplyOn(l(new[] {"2"}), env)).Equals(a("5"));
         }
     }
 }

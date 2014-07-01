@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Lissen;
 
 namespace LissenTest
@@ -16,27 +12,16 @@ namespace LissenTest
 
         protected List l(string[] stringList)
         {
-            List list = new List();
-            foreach (string s in stringList)
-            {
-                list.Add(a(s));
-            }
+            var list = new List();
+            list.AddRange(stringList.Select(a));
             return list;
         }
 
         protected List l(Sexpr[] symList)
         {
-            List list = new List();
-            foreach (Sexpr s in symList)
-            {
-                list.Add(s);
-            }
+            var list = new List();
+            list.AddRange(symList);
             return list;
-        }
-
-        protected Sexpr quote(Sexpr s)
-        {
-            return l(new Sexpr[] { a("quote"), s });
         }
     }
 }

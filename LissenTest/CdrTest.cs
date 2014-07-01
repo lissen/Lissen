@@ -1,19 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
 
 namespace LissenTest
 {
-    [TestClass]
     public class CdrTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void Cdr()
         {
             var env = new VariablesEnvironment();
             var arg = l(new[] { "a", "b", "c"});
             var cdrFunction = new Cdr();
-            Assert.AreEqual(l(new[] { "b", "c" }), cdrFunction.ApplyOn(arg, env));
+            Check.That(cdrFunction.ApplyOn(arg, env)).Equals(l(new[] {"b", "c"}));
         }
     }
 }

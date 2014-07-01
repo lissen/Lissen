@@ -1,38 +1,37 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
+using List = Lissen.List;
 
 namespace LissenTest
 {
-    [TestClass]
     public class DefineTest : SexprHelpers
     {
-        [TestMethod]
+        [Test]
         public void DefineVariable()
         {
             var env = new VariablesEnvironment();
-            List par = l(new[] { "x", "3" });
+            var par = l(new[] { "x", "3" });
 
-            Define def = new Define();
+            var def = new Define();
             def.ApplyOn(par, env);
 
-            Assert.IsTrue(env.IsDefined(a("x")));
-            Assert.AreEqual(Atom.s("3"), env.Find(a("x")));
+            Check.That(env.IsDefined(a("x"))).IsTrue();
+            Check.That(env.Find(a("x"))).Equals(Atom.s("3"));
         }
 
-        [TestMethod]
+        [Test]
         public void DefineFunctionAsLambda()
         {
             var env = new VariablesEnvironment();
-            List args = l(new[] { "add", "x", "y" });
-            List form = l(new[] { "+", "x", "y" });
-            List def = l(new Sexpr[] { args, form });
+            var args = l(new[] { "add", "x", "y" });
+            var form = l(new[] { "+", "x", "y" });
+            var def = l(new Sexpr[] { args, form });
 
-            Define define = new Define();
+            var define = new Define();
             define.ApplyOn(def, env);
 
-            Assert.IsTrue(env.IsDefined(a("add")));
-//            Assert.AreEqual(Atom.s("3"), env.Find(a("x")));
+            Check.That(env.IsDefined(a("add"))).IsTrue();
         }
     }
 }

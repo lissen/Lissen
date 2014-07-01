@@ -1,83 +1,82 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lissen;
+﻿using Lissen;
+using NFluent;
+using NUnit.Framework;
+using List = Lissen.List;
 
 namespace LissenTest
 {
-    [TestClass]
     public class ListTest : SexprHelpers
     {
         private List abc;
         private VariablesEnvironment env;
 
-        [TestInitialize]
+        [SetUp]
         public void SetUp()
         {
             abc = l(new[] { "a", "b", "c" });
             env = new VariablesEnvironment();
         }
 
-        [TestMethod]
+        [Test]
         public void Car()
         {
-            Assert.AreEqual(a("a"), abc.Car());
+            Check.That(abc.Car()).Equals(a("a"));
         }
 
-        [TestMethod]
+        [Test]
         public void Cdr()
         {
-            Assert.AreEqual(l(new[] { "b", "c" }), abc.Cdr());
+            Check.That(abc.Cdr()).Equals(l(new[] { "b", "c" }));
         }
 
-        [TestMethod]
+        [Test]
         public void Cadr()
         {
-            Assert.AreEqual(a("b"), abc.Cadr());
+            Check.That(abc.Cadr()).Equals(a("b"));
         }
 
-        [TestMethod]
+        [Test]
         public void Caddr()
         {
-            Assert.AreEqual(a("c"), abc.Caddr());
+            Check.That(abc.Caddr()).Equals(a("c"));
         }
 
-        [TestMethod]
+        [Test]
         public void Eval()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            List list = l(new[] { "+", "2", "3" });
-            Assert.AreEqual(a("5"), list.Eval(env));
+            var env = new VariablesEnvironment();
+            var list = l(new[] { "+", "2", "3" });
+            Check.That(list.Eval(env)).Equals(a("5"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvalNestedLists()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            List list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" }) });
-            Assert.AreEqual(a("8"), list.Eval(env));
+            var env = new VariablesEnvironment();
+            var list = l(new Sexpr[] { a("+"), a("3"), l(new[] { "+", "2", "3" }) });
+            Check.That(list.Eval(env)).Equals(a("8"));
         }
 
-
-        [TestMethod]
+        [Test]
         public void EvalDefine()
         {
             define("x", a("3"));
-            Assert.AreEqual(Atom.s("6"), l(new[] { "+", "x", "3" }).Eval(env));
+            Check.That(l(new[] {"+", "x", "3"}).Eval(env)).Equals(Atom.s("6"));
         }
 
-        [TestMethod]
+        [Test]
         public void EvalLambda()
         {
-            VariablesEnvironment env = new VariablesEnvironment();
-            Assert.IsTrue(Lambda().Eval(env) is Function);
+            var env = new VariablesEnvironment();
+            Check.That(Lambda().Eval(env) is Function).IsTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void EvalLambdaApply()
         {
-            VariablesEnvironment env = new VariablesEnvironment();           
-            List list = l(new Sexpr[] { Lambda(), a("3") });
-            Assert.AreEqual(a("5"), list.Eval(env));
+            var env = new VariablesEnvironment();           
+            var list = l(new Sexpr[] { Lambda(), a("3") });
+            Check.That(list.Eval(env)).Equals(a("5"));
         }
 
         private List Lambda()
