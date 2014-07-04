@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lissen
+﻿namespace Lissen
 {
     public class Atom : Sexpr
     {
@@ -12,15 +6,14 @@ namespace Lissen
 
         public static Atom s(string s)
         {
-            Atom a = new Atom();
+            var a = new Atom();
             a.AsString = s;
             return a;
         }
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            if (env.IsDefined(this)) return env.Find(this);
-            return this;
+            return env.IsDefined(this) ? env.Find(this) : this;
         }
 
         public override string ToString()
@@ -30,7 +23,7 @@ namespace Lissen
 
         public override bool Equals(object other)
         {
-            Atom otherAtom = other as Atom;
+            var otherAtom = other as Atom;
             if (otherAtom == null)
                 return false;
             else

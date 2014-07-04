@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Lissen;
 
 namespace LissenRepl
@@ -16,20 +11,20 @@ namespace LissenRepl
             Console.WriteLine("");
             Console.WriteLine("<ctrl>-C to exit.");
 
-            VariablesEnvironment globalEnv = new VariablesEnvironment();
+            var globalEnv = new VariablesEnvironment();
 
-            Parser parser = new Parser();
+            var parser = new Parser();
 
             while(true)
             {
                 Console.Write("> ");
-                string userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
 
                 try
                 {
-                    foreach (Sexpr sexpr in parser.Parse(userInput))
+                    foreach (var sexpr in parser.Parse(userInput))
                     {
-                        string result = sexpr.Eval(globalEnv).ToString();
+                        var result = sexpr.Eval(globalEnv).ToString();
                         Console.WriteLine(result);
                     }                    
                 }

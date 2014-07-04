@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lissen
 {
@@ -17,8 +13,8 @@ namespace Lissen
 
         public override Sexpr ApplyOn(List par, VariablesEnvironment env)
         {
-            Sexpr param1 = par.Car();
-            Sexpr param2 = par.Cadr();
+            var param1 = par.Car();
+            var param2 = par.Cadr();
 
             var v1 = Convert.ToInt32(param1.Eval(env).ToString());
             var v2 = Convert.ToInt32(param2.Eval(env).ToString());

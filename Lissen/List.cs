@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lissen
 {
@@ -32,7 +30,7 @@ namespace Lissen
 
         public Sexpr Eval(VariablesEnvironment env)
         {
-            Function fun = this.Car().Eval(env) as Function;
+            var fun = this.Car().Eval(env) as Function;
 
             return fun.ApplyOn(this.Cdr(), env);
         }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lissen
 {
@@ -31,7 +27,7 @@ namespace Lissen
 
         public override bool Equals(object other)
         {
-            Pair otherPair = other as Pair;
+            var otherPair = other as Pair;
             if (otherPair == null) return false;
 
             if(!this.Car.Equals(otherPair.Car)) return false;

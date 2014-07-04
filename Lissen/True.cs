@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lissen
+﻿namespace Lissen
 {
     public class True : Atom
     {

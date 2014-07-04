@@ -14,7 +14,7 @@ namespace Lissen
 
             this.tokens = new Queue<string>(splittedString);
 
-            List<Sexpr> parsed = new List<Sexpr>();
+            var parsed = new List<Sexpr>();
 
             while (tokens.Count > 0)
             {
@@ -28,10 +28,10 @@ namespace Lissen
         {
             if (tokens.Count==0) throw new Exception("unexpected EOF");
 
-            string token = tokens.Dequeue();
+            var token = tokens.Dequeue();
 
             if(token == "(") {
-                List list = new List();
+                var list = new List();
                 while((tokens.Count >0) && (tokens.Peek() != ")")) {
                     list.Add(ParseTokens());
                 }
@@ -40,11 +40,13 @@ namespace Lissen
                 
                 return list;
             }
-            else if(token == ")")
-	        {
-                 throw new Exception("unexpected )");   
-	        }
-            else return Atom.s(token);
+
+            if(token == ")")
+            {
+                throw new Exception("unexpected )");   
+            }
+
+            return Atom.s(token);
         }
     }
 }
