@@ -5,21 +5,21 @@ namespace Lissen
 {
     public class VariablesEnvironment
     {
-        private Dictionary<Atom, Sexpr> variables = new Dictionary<Atom, Sexpr>();
-        private VariablesEnvironment parentEnv = null;
+        private readonly Dictionary<Atom, Sexpr> variables = new Dictionary<Atom, Sexpr>();
+        private readonly VariablesEnvironment parentEnv = null;
 
         public VariablesEnvironment()
         {
-            addBuildIn("+", new NumericOperator(Atom.s("+")));
-            addBuildIn("-", new NumericOperator(Atom.s("-")));
-            addBuildIn("*", new NumericOperator(Atom.s("*")));
-            addBuildIn("/", new NumericOperator(Atom.s("/")));
-            addBuildIn("=", new NumericOperator(Atom.s("=")));
-            addBuildIn("define", new Define());
-            addBuildIn("lambda", new Lambda());
-            addBuildIn("if", new If());
-            addBuildIn("begin", new Begin());
-            addBuildIn("cond", new Cond());
+            AddBuildIn("+", new NumericOperator(Atom.s("+")));
+            AddBuildIn("-", new NumericOperator(Atom.s("-")));
+            AddBuildIn("*", new NumericOperator(Atom.s("*")));
+            AddBuildIn("/", new NumericOperator(Atom.s("/")));
+            AddBuildIn("=", new NumericOperator(Atom.s("=")));
+            AddBuildIn("define", new Define());
+            AddBuildIn("lambda", new Lambda());
+            AddBuildIn("if", new If());
+            AddBuildIn("begin", new Begin());
+            AddBuildIn("cond", new Cond());
         }
 
         public VariablesEnvironment(VariablesEnvironment parentEnv)
@@ -27,7 +27,7 @@ namespace Lissen
             this.parentEnv = parentEnv;
         }
 
-        private void addBuildIn(string s, Sexpr form)
+        private void AddBuildIn(string s, Sexpr form)
         {
             variables.Add(Atom.s(s), form);
         }
